@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, StatusBar, Image, TouchableOpacity } from 'react-native';
 import { NeuView, NeuProgressBar } from 'react-native-neu-element';
 import Animated, { Easing } from 'react-native-reanimated';
-
 const { Value, Clock, concat } = Animated;
 export default class HomeScreen extends Component {
   render() {
