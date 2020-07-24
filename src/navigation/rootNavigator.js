@@ -2,14 +2,14 @@ import * as React from 'react';
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from '../screen/home/HomeScreen';
-import DashboardScreen from '../screen/home/DashboardScreen';
-import LoginScreen from '../screen/home/LoginScreen';
-import CreateAccScreen from '../screen/home/CreateAccScreen'
-import LockScreen from '../screen/home/LockScreen'
-import WelcomeScreen from '../screen/home/WelcomeScreen'
-import ProfileScreen from '../screen/home/ProfileScreen'
-import LottieScreen from '../screen/home/LottieScreen'
+import HomeScreen from '../screen/Js file/HomeScreen';
+import DashboardScreen from '../screen/Js file/DashboardScreen';
+import LoginScreen from '../screen/Js file/LoginScreen';
+import CreateAccScreen from '../screen/Js file/CreateAccScreen'
+import LockScreen from '../screen/Js file/LockScreen'
+import WelcomeScreen from '../screen/Js file/WelcomeScreen'
+import ProfileScreen from '../screen/Js file/ProfileScreen'
+import LottieScreen from '../screen/Js file/LottieScreen'
 
 const Stack = createStackNavigator();
 
