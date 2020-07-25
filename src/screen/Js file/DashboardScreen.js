@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import { Text, View, StatusBar, Image, TouchableOpacity } from 'react-native'
+import { Text, View, StatusBar, Image, TouchableOpacity, ScrollView } from 'react-native'
 import { NeuInput, NeuView } from 'react-native-neu-element';
 import ViewPager from '@react-native-community/viewpager';
 
 export default class DashboardScreen extends Component {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#e5f9ff' }}>
+      <View style={{ flex: 1, alignItems: 'center',justifyContent:'center', backgroundColor: '#e5f9ff' }}>
 
         <StatusBar hidden={true} />
-        <View style={{ alignItems: 'center', justifyContent: 'center', }}>
+        <View style={{ alignItems: 'center', justifyContent: 'center'}}>
           <NeuInput
             prefix={
               <Image
@@ -24,8 +24,8 @@ export default class DashboardScreen extends Component {
 
         {/* --------------------------------------------------------------------------------------------- */}
 
-        <View style={{ flexDirection: "row", marginTop: 30, justifyContent: 'space-between' }}>
-          <TouchableOpacity>
+        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{maxHeight:200,marginTop:30}}>
+          <TouchableOpacity style={{marginHorizontal:15,height:200}}>
             <NeuView color='#eef2f9' height={170} width={130} borderRadius={20} convex>
               <Image
                 style={{ width: 125, height: 160, }}
@@ -34,7 +34,7 @@ export default class DashboardScreen extends Component {
               />
             </NeuView>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity style={{marginHorizontal:15,height:200}}>
             <NeuView color='#eef2f9' height={170} width={130} borderRadius={20} convex>
               <Image
                 style={{ width: 125, height: 160, }}
@@ -43,7 +43,7 @@ export default class DashboardScreen extends Component {
               />
             </NeuView>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity style={{marginHorizontal:15,height:200}}>
             <NeuView color='#eef2f9' height={170} width={130} borderRadius={20} convex>
               <Image
                 style={{ width: 125, height: 160, }}
@@ -52,7 +52,7 @@ export default class DashboardScreen extends Component {
               />
             </NeuView>
           </TouchableOpacity>
-        </View>
+        </ScrollView>
         {/* ----------------------------------------------------------------- */}
 
         <View style={{ marginTop: 60 }}>

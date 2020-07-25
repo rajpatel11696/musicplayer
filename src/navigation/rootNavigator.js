@@ -21,7 +21,7 @@ function App() {
           headerShown: false,
         }}>
 
-<Stack.Screen name="Home" component={HomeScreen} />
+{/* <Stack.Screen name="Home" component={HomeScreen} /> */}
 
 <Stack.Screen name="Dashboard" component={DashboardScreen} />
 <Stack.Screen name="Lock" component={LockScreen} />
