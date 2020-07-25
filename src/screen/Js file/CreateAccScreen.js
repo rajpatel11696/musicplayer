@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from './node_modules/react'
 import { Text, View, StatusBar, TouchableOpacity, Image } from 'react-native'
-import { NeuView, NeuProgressBar, NeuInput, NeuButton } from 'react-native-neu-element';
-import { RadioButton } from 'react-native-paper';
+import { NeuView, NeuProgressBar, NeuInput, NeuButton } from './node_modules/react-native-neu-element';
+import { RadioButton } from './node_modules/react-native-paper';
 
 
 
