@@ -95,14 +95,10 @@ export default class HomeScreen extends Component {
                 style={{ width: 45, height: 45 }}
                 source={require('../Image/Forward.png')}
               />
-
             </NeuView>
           </TouchableOpacity>
         </View>
-
       </View>
-
-
     );
   }
 }
