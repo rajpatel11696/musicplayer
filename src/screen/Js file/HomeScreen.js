@@ -28,7 +28,7 @@ export default class HomeScreen extends Component {
           </TouchableOpacity>
 
           <View style={{ padding: 10 }}>
-            <Text style={{ fontSize: 20, color: '#808080' }}>PLAYING NOW Songs</Text>
+            <Text style={{ fontSize: 20, color: '#808080' }}>PLAYING NOW</Text>
           </View>
           <TouchableOpacity>
             <NeuView color='#eef2f9' height={65} width={65} borderRadius={50} concave>
