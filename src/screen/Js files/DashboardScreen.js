@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, StatusBar, Image, TouchableOpacity, ScrollView } from 'react-native'
 import { NeuInput, NeuView } from 'react-native-neu-element';
 import ViewPager from '@react-native-community/viewpager';
+import { hp } from '../../../Dimension';
 
 export default class DashboardScreen extends Component {
   render() {
@@ -18,13 +19,13 @@ export default class DashboardScreen extends Component {
               />
             }
             placeholder='Search...'
-            width={350} height={60} color='#eef2f9' borderRadius={50}
+            width={350} height={50} color='#eef2f9' borderRadius={50}
           />
         </View>
 
         {/* --------------------------------------------------------------------------------------------- */}
 
-        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{maxHeight:200,marginTop:30}}>
+        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{maxHeight:200,marginTop: hp(5)}}>
           <TouchableOpacity style={{marginHorizontal:15,height:200}}>
             <NeuView color='#eef2f9' height={170} width={130} borderRadius={20} convex>
               <Image
@@ -55,13 +56,27 @@ export default class DashboardScreen extends Component {
         </ScrollView>
         {/* ----------------------------------------------------------------- */}
 
-        <View style={{ marginTop: 60 }}>
+        <View style={{ marginTop: hp(2) }}>
           <TouchableOpacity onPress={()=> this.props.navigation.navigate("Home")}>
             <NeuView color='#eef2f9' height={60} width={350} borderRadius={10}> 
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
                 <Image
                   style={{ width: 35, height: 35, }}
                   source={require('../Image/album.png')}
+                  borderRadius={20}
+                />
+                <Text style={{ fontSize: 20, padding: 10 }}>All Songs</Text>
+              </View>
+            </NeuView>
+          </TouchableOpacity>
+        </View>
+        <View style={{ marginTop: 25 }}>
+          <TouchableOpacity>
+            <NeuView color='#eef2f9' height={60} width={350} borderRadius={10} >
+              <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
+                <Image
+                  style={{ width: 35, height: 35, }}
+                  source={require('../Image/artist.png')}
                   borderRadius={20}
                 />
                 <Text style={{ fontSize: 20, padding: 10 }}>Albums</Text>

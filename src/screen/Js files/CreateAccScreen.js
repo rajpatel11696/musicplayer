@@ -10,16 +10,26 @@ export default class CreateAccScreen extends Component {
 
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#e5f9ff' }}>
                 <StatusBar hidden={true} />
-                <View>
+
+                <View style={{ justifyContent: 'center', alignItems: 'center', zIndex: 1}}>
+                    <NeuView color='#eef2f9' height={hp(12)} width={wp(24)} borderRadius={100} convex>
+                        <Image
+                            style={{ width: wp(21), height: hp(13) }}
+                            source={require('../Image/Musiclogo.png')}
+                        />
+                    </NeuView>
+                </View>
+
+                <View style={{marginTop:hp(-13)}}>
                     <Image
 
                         source={require('../Image/TreeSignUp.jpg')}
-                        style={{ width: wp(90), height: hp(40)}}
+                        style={{ width: wp(92), height: hp(35)}}
                         >
 
                     </Image>
                 </View>
-                <View style={{ alignSelf: 'flex-start', marginLeft: wp(7),}}>
+                <View style={{ alignSelf: 'flex-start', marginLeft: wp(7),marginTop: hp(-1.5)}}>
                     <Text style={{ fontSize: 32, color: '#595959' }}>Welcome</Text>
                     <Text style={{ fontSize: 22, color: '#808080' }}>Let's get started</Text>
 
@@ -63,7 +73,7 @@ export default class CreateAccScreen extends Component {
                         <NeuButton
                             color="#eef2f9"
                             width={wp(50)}
-                            height={hp(8)}
+                            height={hp(7)}
                             borderRadius={50}
                         >
                             <Text 

@@ -21,7 +21,7 @@ export default class componentName extends Component {
 
 
 
-                <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 50 }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp(20)}}>
                     <NeuView color='#eef2f9' height={160} width={160} borderRadius={100} convex>
                         <Image
                             style={{ width: wp(40), height: hp(20) }}
@@ -36,14 +36,14 @@ export default class componentName extends Component {
                 </View>
                 <View style={{ justifyContent: 'center', alignItems: 'center', padding: 10 }}>
                     <Text style={{ fontSize: 18, fontFamily: 'Arial', fontWeight: 'bold' }}>
-                        Where words leave off, music begins.
+                        Where Words Leave Off, Music Begins.
     </Text>
                 </View>
                 <View>
                     <Image
 
                         source={require('../Image/wlc.jpg')}
-                        style={{ width: 380, height: 250, marginTop: 150 }}
+                        style={{ width: 380, height: 250, marginTop: hp(18) }}
                     >
 
                     </Image>

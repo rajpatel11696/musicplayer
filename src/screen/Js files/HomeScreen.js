@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, StatusBar, Image, TouchableOpacity } from 'react-native';
 import { NeuView, NeuProgressBar } from 'react-native-neu-element';
 import Animated, { Easing } from 'react-native-reanimated';
+import { hp, wp } from '../../../Dimension';
 const { Value, Clock, concat } = Animated;
 export default class HomeScreen extends Component {
   render() {
     const progressStyle = {
-      width: concat(this.transX, '%'),
-      height: this.props.indicatorHeight,
-      backgroundColor: this.props.indicatorColor,
+      width: wp(38),
+      height: hp(1.2),
+      backgroundColor: '#99ccff',
       borderRadius: 100,
     };
     return (
@@ -16,7 +17,7 @@ export default class HomeScreen extends Component {
       <View style={{ backgroundColor: '#e5f9ff', flex: 1 }}>
         <StatusBar hidden={true} />
 
-        <View style={{ flexDirection: "row", justifyContent: 'space-around', alignItems: 'center', marginTop: 30 }}>
+        <View style={{ flexDirection: "row", justifyContent: 'space-around', alignItems: 'center', marginTop: hp(5.5) }}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate("Dashboard")}>
             <NeuView color='#eef2f9' height={65} width={65} borderRadius={50} concave>
               <Image
@@ -38,7 +39,7 @@ export default class HomeScreen extends Component {
           </TouchableOpacity>
         </View>
 
-        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 40 }}>
+        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp(10) }}>
           <NeuView color='#eef2f9' height={200} width={200} borderRadius={100} inset>
             <Image
               style={{ width: 180, height: 180, borderRadius: 100 }}
@@ -47,7 +48,7 @@ export default class HomeScreen extends Component {
           </NeuView>
         </View>
 
-        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp(5) }}>
           <View>
             <Text style={{ fontSize: 30, color: '#5c5757', fontWeight: '500' }}>LOST IT</Text>
           </View>
@@ -55,21 +56,27 @@ export default class HomeScreen extends Component {
             <Text style={{ fontSize: 24, color: '#808080' }}>Flume ft. Vic Methos</Text>
           </View>
         </View>
-        <View style={{ marginTop: 50, width: 350, justifyContent: "center", alignSelf: 'center' }}>
-          {/* <NeuView
-            color='#4db8ff'
-            borderRadius={100}
-            width={350}
-            height={10}
 
-            concave
-            containerStyle={{
-              alignItems: 'flex-start',
-            }}>
-          </NeuView> */}
+{/* ------------------------------------------------------------------------ */}
+<View style={{marginTop: hp(8),marginLeft: wp(5)}}>
+<NeuView
+        color='#e5f9ff'
+        borderRadius={100}
+        width={wp(85)}
+        height={hp(2)}
+        containerStyle={{
+          alignItems: 'flex-start',
+          
+        }}>
+        <Animated.View style={progressStyle} />
+      </NeuView>
 
-        </View>
-        <View style={{ flexDirection: "row", justifyContent: 'space-evenly', marginTop: 70 }}>
+</View>
+
+
+{/* ---------------------------------------------------------------------------------------------------------- */}
+
+        <View style={{ flexDirection: "row", justifyContent: 'space-evenly', marginTop: hp(8) }}>
           <TouchableOpacity>
             <NeuView color='#eef2f9' height={80} width={80} borderRadius={50} convex>
               <Image
