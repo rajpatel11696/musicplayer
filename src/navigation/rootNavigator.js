@@ -20,9 +20,8 @@ function App() {
         screenOptions={{
           headerShown: false,
         }}>
-<Stack.Screen name="Dashboard" component={DashboardScreen} />
-
 <Stack.Screen name="Welcome" component={WelcomeScreen} />
+<Stack.Screen name="Dashboard" component={DashboardScreen} />
 <Stack.Screen name="Home" component={HomeScreen}/> 
 <Stack.Screen name="Lock" component={LockScreen} />
 <Stack.Screen name="Signup" component={CreateAccScreen} />

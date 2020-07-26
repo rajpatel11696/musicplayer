@@ -17,7 +17,7 @@ export default class HomeScreen extends Component {
         <StatusBar hidden={true} />
 
         <View style={{ flexDirection: "row", justifyContent: 'space-around', alignItems: 'center', marginTop: 30 }}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("Dashboard")}>
             <NeuView color='#eef2f9' height={65} width={65} borderRadius={50} concave>
               <Image
                 style={{ width: 40, height: 40 }}

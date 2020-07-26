@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NeuView, NeuProgressBar, NeuInput, NeuButton } from 'react-native-neu-element';
 import { Text, View, StatusBar, TouchableOpacity, Image } from 'react-native'
+import { wp, hp } from '../../../Dimension';
 
 
 export default class LoginScreen extends Component {
@@ -9,17 +10,24 @@ export default class LoginScreen extends Component {
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#e5f9ff' }}>
                 <StatusBar hidden={true} />
 
-                <View style={{ marginTop: -20 }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center', zIndex: 1, marginTop:hp(7) }}>
+                    <NeuView color='#eef2f9' height={hp(13)} width={wp(24)} borderRadius={100} convex>
+                        <Image
+                            style={{ width: wp(21), height: hp(13) }}
+                            source={require('../Image/Musiclogo.png')}
+                        />
+                    </NeuView>
+                </View>
+                <View style={{marginTop:hp(-9)}}>
                     <Image
-
                         source={require('../Image/TreeSignUp.jpg')}
-                        style={{ width: 400, height: 220 }}>
+                        style={{ width: 400, height: 220, marginLeft: wp(3) }}>
 
                     </Image>
                 </View>
                 <View style={{ padding: 25, alignSelf: 'flex-start' }}>
-                    <Text style={{ fontSize: 40, color: '#595959' }}>Welcome</Text>
-                    <Text style={{ fontSize: 28, color: '#808080' }}>Let's get started</Text>
+                    <Text style={{ fontSize: 32, color: '#595959' }}>Welcome</Text>
+                    <Text style={{ fontSize: 22, color: '#808080' }}>Let's get started</Text>
 
                 </View>
 
@@ -34,7 +42,7 @@ export default class LoginScreen extends Component {
                                 style={{ width: 25, height: 25 }}
                             />
                         }
-                        placeholder='Your Email here' width={350} height={60} color='#eef2f9' borderRadius={50}></NeuInput>
+                        placeholder='Your Email here' width={wp(90)} height={hp(7.5)} color='#eef2f9' borderRadius={50}></NeuInput>
                 </View>
                 <View style={{ padding: 7 }}>
 
@@ -45,28 +53,33 @@ export default class LoginScreen extends Component {
                                 style={{ width: 25, height: 25 }}
                             />
                         }
-                        placeholder='Your password here' width={350} height={60} color='#eef2f9' borderRadius={50}></NeuInput>
+                        placeholder='Your password here' width={wp(90)} height={hp(7.5)} color='#eef2f9' borderRadius={50}></NeuInput>
                 </View>
                 <TouchableOpacity>
-                    <View style={{ alignSelf: 'flex-start', marginLeft: 30, padding: 7 }}>
-                        <Text style={{ fontSize: 20, color: '#808080', textDecorationLine: 'underline' }}>Forgot Password?</Text>
+                    <View style={{ padding: 7 }}>
+                        <Text 
+                        onPress={()=> this.props.navigation.navigate("Lock")}
+                        style={{ fontSize: 22, color: '#808080', textDecorationLine: 'underline' }}>Forgot Password?</Text>
                     </View>
                 </TouchableOpacity>
                 <View style={{ marginTop: 25, justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
-                    <TouchableOpacity>
+                    
                         <NeuButton
                             color="#eef2f9"
-                            width={150}
-                            height={60}
+                            width={wp(40)}
+                            height={hp(8)}
                             borderRadius={50}
+                            onPress={()=> this.props.navigation.navigate("Dashboard")}
                         >
                             <Text style={{ fontSize: 24, color: '#808080' }}>Sign-in</Text>
                         </NeuButton>
-                    </TouchableOpacity>
+                    
                 </View>
                 <TouchableOpacity>
                     <View style={{ padding: 15 }}>
-                        <Text style={{ fontSize: 24, color: '#808080', textDecorationLine: 'underline' }}>Create An Account</Text>
+                        <Text 
+                        onPress={()=> this.props.navigation.navigate("Signup")}
+                        style={{ fontSize: 22, color: '#808080', textDecorationLine: 'underline' }}>Create An Account</Text>
                     </View>
                 </TouchableOpacity>
             </View>

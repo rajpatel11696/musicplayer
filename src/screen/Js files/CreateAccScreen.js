@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, StatusBar, TouchableOpacity, Image } from 'react-native'
 import { NeuView, NeuProgressBar, NeuInput, NeuButton } from 'react-native-neu-element';
 import { RadioButton } from 'react-native-paper';
-
-
-
+import {wp,hp} from '../../../Dimension';
 
 export default class CreateAccScreen extends Component {
     render() {
@@ -12,24 +10,24 @@ export default class CreateAccScreen extends Component {
 
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#e5f9ff' }}>
                 <StatusBar hidden={true} />
-                <View style={{marginTop: -20}}>
+                <View>
                     <Image
 
                         source={require('../Image/TreeSignUp.jpg')}
-                        style={{ width: 400, height: 220}}
+                        style={{ width: wp(90), height: hp(40)}}
                         >
 
                     </Image>
                 </View>
-                <View style={{ alignSelf: 'flex-start', marginLeft: 30, marginTop: 20 }}>
-                    <Text style={{ fontSize: 35, color: '#595959' }}>Welcome</Text>
-                    <Text style={{ fontSize: 24, color: '#808080' }}>Let's get started</Text>
+                <View style={{ alignSelf: 'flex-start', marginLeft: wp(7),}}>
+                    <Text style={{ fontSize: 32, color: '#595959' }}>Welcome</Text>
+                    <Text style={{ fontSize: 22, color: '#808080' }}>Let's get started</Text>
 
 
 
                 </View>
 
-                <View style={{ padding: 20, marginTop:10 }}>
+                <View style={{ padding: 10, marginTop:10 }}>
                     <NeuInput
                         prefix={
                             <Image
@@ -37,7 +35,7 @@ export default class CreateAccScreen extends Component {
                                 style={{ width: 25, height: 25 }}
                             />
                         }
-                        placeholder='Your Email here' width={350} height={60} color='#eef2f9' borderRadius={50}></NeuInput>
+                        placeholder='Your Email here' width={wp(90)} height={hp(7.5)} color='#eef2f9' borderRadius={50}></NeuInput>
                 </View>
                 <View style={{ padding: 7 }}>
                     <NeuInput
@@ -47,34 +45,38 @@ export default class CreateAccScreen extends Component {
                                 style={{ width: 25, height: 25 }}
                             />
                         }
-                        placeholder='Your password here' width={350} height={60} color='#eef2f9' borderRadius={50}></NeuInput>
+                        placeholder='Your password here' width={wp(90)} height={hp(7.5)} color='#eef2f9' borderRadius={50}></NeuInput>
                 </View>
                 <TouchableOpacity>
 
-                    <View style={{ alignSelf: 'flex-start',  flexDirection: 'row'}}>
+                    <View style={{flexDirection: 'row', marginLeft: -20}}>
                         <RadioButton
                             value="first"
                             onPress={() => setChecked('first')}
                         />
-                        <Text style={{ fontSize: 20, color: '#808080' }}>I agree to all </Text>
-                        <Text style={{ fontSize: 20, color: '#808080', textDecorationLine: 'underline' }}>terms and conditions</Text>
+                        <Text style={{ fontSize: 18, color: '#808080' }}>I agree to all </Text>
+                        <Text style={{ fontSize: 18, color: '#808080', textDecorationLine: 'underline' }}>terms and conditions</Text>
                     </View>
                 </TouchableOpacity>
-                <View style={{ marginTop: 25, justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
+                <View style={{ marginTop: 20, justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
                     <TouchableOpacity>
                         <NeuButton
                             color="#eef2f9"
-                            width={200}
-                            height={60}
+                            width={wp(50)}
+                            height={hp(8)}
                             borderRadius={50}
                         >
-                            <Text style={{ fontSize: 22, color: '#808080' }}>Create Account</Text>
+                            <Text 
+                            onPress={()=> this.props.navigation.navigate("Dashboard")}
+                            style={{ fontSize: 22, color: '#808080' }}>Create Account</Text>
                         </NeuButton>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity>
-                    <View style={{ marginTop: 20 }}>
-                        <Text style={{ fontSize: 22, color: '#808080', textDecorationLine: 'underline' }}>Sign-in Now</Text>
+                    <View style={{ marginTop: 14 }}>
+                        <Text 
+                        onPress={()=> this.props.navigation.navigate("Login")}
+                        style={{ fontSize: 22, color: '#808080', textDecorationLine: 'underline' }}>Sign-in Now</Text>
                     </View>
                 </TouchableOpacity>
             </View>

@@ -56,8 +56,8 @@ export default class DashboardScreen extends Component {
         {/* ----------------------------------------------------------------- */}
 
         <View style={{ marginTop: 60 }}>
-          <TouchableOpacity>
-            <NeuView color='#eef2f9' height={60} width={350} borderRadius={10} >
+          <TouchableOpacity onPress={()=> this.props.navigation.navigate("Home")}>
+            <NeuView color='#eef2f9' height={60} width={350} borderRadius={10}> 
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
                 <Image
                   style={{ width: 35, height: 35, }}
@@ -95,7 +95,6 @@ export default class DashboardScreen extends Component {
                 />
                 <Text style={{ fontSize: 20, padding: 10 }}>Favorites</Text>
               </View>
-
             </NeuView>
           </TouchableOpacity>
         </View>
