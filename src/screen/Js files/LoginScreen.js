@@ -66,7 +66,7 @@ export default class LoginScreen extends Component {
                         }
                         value={this.state.password}
                         onChangeText={(password) => this.setState({ password })}
-                        secureTextEntry={false}
+                        secureTextEntry={true}
                         placeholder='Your password here' width={wp(90)} height={hp(7.5)} color='#eef2f9' borderRadius={50}></NeuInput>
                 </View>
                 <TouchableOpacity>
