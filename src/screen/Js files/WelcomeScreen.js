@@ -1,27 +1,36 @@
 import React, { Component } from 'react'
-import { Text, View, Image, TouchableOpacity } from 'react-native'
+import { Text, View, Image, TouchableOpacity, AsyncStorage } from 'react-native'
 
 import { NeuView, NeuProgressBar, NeuButton } from 'react-native-neu-element';
 import Animated, { Easing } from 'react-native-reanimated';
 import { wp, hp } from '../../../Dimension';
 
 export default class componentName extends Component {
-    constructor(props) {
-        super(props);
-        setTimeout(() => {
-            this.props.navigation.navigate("Login");
-        },4000) ;
 
+    componentDidMount() {
+        setTimeout(() => {
+            // this.props.navigation.navigate("Login");
+
+            AsyncStorage.getItem('id').then((data) => {
+                console.log("asyncdata" + data)
+                if (data === null) {
+                    this.props.navigation.navigate("Login");
+                } else {
+                    this.props.navigation.navigate("Dashboard")
+                }
+            }).catch((error)=>{
+                console.log(JSON.stringify(error))
+            })
+        }, 2000);
     }
 
     render() {
-
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#e5f9ff', }}>
 
 
 
-                <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp(20)}}>
+                <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp(20) }}>
                     <NeuView color='#eef2f9' height={160} width={160} borderRadius={100} convex>
                         <Image
                             style={{ width: wp(40), height: hp(20) }}
