@@ -2,9 +2,32 @@ import React, { Component } from 'react'
 import { Text, View, StatusBar, Image, TouchableOpacity, ScrollView } from 'react-native'
 import { NeuInput, NeuView } from 'react-native-neu-element';
 import ViewPager from '@react-native-community/viewpager';
-import { hp } from '../../../Dimension';
+import { hp, wp } from '../../../Dimension';
+import MusicFiles from 'react-native-get-music-files';
 
 export default class DashboardScreen extends Component {
+
+  componentDidMount(){
+    MusicFiles.getAll({
+        id : true,
+        blured : false,
+        artist : true,
+        duration : true, //default : true
+        cover : true, //default : true,
+        title : true,
+        cover : true,
+        batchNumber : 5, //get 5 songs per batch
+        minimumSongDuration : 10000, //in miliseconds,
+        fields : ['title','artwork','duration','artist','genre','lyrics','albumTitle']
+    }).then(tracks => {
+      console.log("Error" + JSON.stringify(error))
+      alert(JSON.stringify(tracks))
+  }).catch(error => {
+    console.log("Error" + JSON.stringify(error))
+      // catch the error
+  });
+}
+
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center',justifyContent:'center', backgroundColor: '#e5f9ff' }}>
@@ -53,12 +76,21 @@ export default class DashboardScreen extends Component {
               />
             </NeuView>
           </TouchableOpacity>
+          <TouchableOpacity style={{marginHorizontal:15,height:200}}>
+            <NeuView color='#eef2f9' height={170} width={130} borderRadius={20} convex>
+              <Image
+                style={{ width: 125, height: 160, }}
+                source={require('../Image/bolly.jpg')}
+                borderRadius={20}
+              />
+            </NeuView>
+          </TouchableOpacity>
         </ScrollView>
         {/* ----------------------------------------------------------------- */}
 
         <View style={{ marginTop: hp(2) }}>
           <TouchableOpacity onPress={()=> this.props.navigation.navigate("Home")}>
-            <NeuView color='#eef2f9' height={60} width={350} borderRadius={10}> 
+            <NeuView color='#eef2f9' height={hp(7)} width={wp(90)} borderRadius={10}> 
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
                 <Image
                   style={{ width: 35, height: 35, }}
@@ -70,9 +102,9 @@ export default class DashboardScreen extends Component {
             </NeuView>
           </TouchableOpacity>
         </View>
-        <View style={{ marginTop: 25 }}>
+        <View style={{ marginTop: 15 }}>
           <TouchableOpacity>
-            <NeuView color='#eef2f9' height={60} width={350} borderRadius={10} >
+            <NeuView color='#eef2f9' height={hp(7)} width={wp(90)} borderRadius={10} >
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
                 <Image
                   style={{ width: 35, height: 35, }}
@@ -84,9 +116,9 @@ export default class DashboardScreen extends Component {
             </NeuView>
           </TouchableOpacity>
         </View>
-        <View style={{ marginTop: 25 }}>
+        <View style={{ marginTop: 15}}>
           <TouchableOpacity>
-            <NeuView color='#eef2f9' height={60} width={350} borderRadius={10} >
+            <NeuView color='#eef2f9' height={hp(7)} width={wp(90)} borderRadius={10} >
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
                 <Image
                   style={{ width: 35, height: 35, }}
@@ -98,9 +130,9 @@ export default class DashboardScreen extends Component {
             </NeuView>
           </TouchableOpacity>
         </View>
-        <View style={{ marginTop: 25 }}>
+        <View style={{ marginTop: 15 }}>
           <TouchableOpacity>
-            <NeuView color='#eef2f9' height={60} width={350} borderRadius={10} >
+            <NeuView color='#eef2f9' height={hp(7)} width={wp(90)} borderRadius={10} >
 
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
                 <Image

@@ -75,6 +75,7 @@ export default class HomeScreen extends Component {
           maximumValue={1}
           minimumTrackTintColor="#8AAAFF"
           maximumTrackTintColor="#DAE6F4"
+          
           thumbTintColor="#7B9BFF" />
 
 
