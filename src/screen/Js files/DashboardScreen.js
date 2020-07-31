@@ -6,33 +6,35 @@ import { hp, wp } from '../../../Dimension';
 import MusicFiles from 'react-native-get-music-files';
 
 export default class DashboardScreen extends Component {
+  state = {
+    trackInfoArray: []
+  };
 
-  componentDidMount(){
+  componentDidMount() {
     MusicFiles.getAll({
-        id : true,
-        blured : false,
-        artist : true,
-        duration : true, //default : true
-        cover : true, //default : true,
-        title : true,
-        cover : true,
-        batchNumber : 5, //get 5 songs per batch
-        minimumSongDuration : 10000, //in miliseconds,
-        fields : ['title','artwork','duration','artist','genre','lyrics','albumTitle']
+      id: true, // get id
+      artist: true, // get artist
+      duration: true, // get duration
+      genre: true, // get genre
+      title: true, // get title
+      fileName: true, // get file name
+      minimumSongDuration: 1000 // get track has min duration is 1000 ms (or 1s)
     }).then(tracks => {
-      console.log("Error" + JSON.stringify(error))
-      alert(JSON.stringify(tracks))
+      console.log(JSON.stringify(tracks));
   }).catch(error => {
-    console.log("Error" + JSON.stringify(error))
-      // catch the error
-  });
+      
+  })
 }
 
   render() {
     return (
+
       <View style={{ flex: 1, alignItems: 'center',justifyContent:'center', backgroundColor: '#e5f9ff' }}>
 
         <StatusBar hidden={true} />
+      
+       
+      
         <View style={{ alignItems: 'center', justifyContent: 'center'}}>
           <NeuInput
             prefix={
