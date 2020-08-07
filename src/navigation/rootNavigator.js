@@ -4,12 +4,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import DashboardScreen from '../Screen/Js files/DashboardScreen';
 import LoginScreen from '../Screen/Js files/LoginScreen';
-import CreateAccScreen from '../Screen/Js files/CreateAccScreen'
-import LockScreen from '../Screen/Js files/LockScreen'
-import WelcomeScreen from '../Screen/Js files/WelcomeScreen'
-import ProfileScreen from '../Screen/Js files/ProfileScreen'
-import LottieScreen from '../Screen/Js files/LottieScreen'
-import HomeScreen from '../Screen/Js files/HomeScreen'
+import CreateAccScreen from '../Screen/Js files/CreateAccScreen';
+import LockScreen from '../Screen/Js files/LockScreen';
+import WelcomeScreen from '../Screen/Js files/WelcomeScreen';
+import ProfileScreen from '../Screen/Js files/ProfileScreen';
+import LottieScreen from '../Screen/Js files/LottieScreen';
+import HomeScreen from '../Screen/Js files/HomeScreen';
 
 const Stack = createStackNavigator();
 
