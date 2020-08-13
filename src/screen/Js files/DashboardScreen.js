@@ -21,7 +21,7 @@ export default class DashboardScreen extends Component {
   }
   renderHeaderItem = () => (
     <View
-      style={{ width: wp(90), padding: wp(3), alignItems: 'center', justifyContent: 'center' }}>
+      style={{ width: wp(90), padding: wp(3), alignItems: 'center', justifyContent: 'center', backgroundColor: '#e5f9ff' }}>
       <Text style={{ fontSize: 26 }}>All Songs</Text>
       <View style={{ alignItems: 'center', justifyContent: 'center', padding: 20 }}>
         <NeuInput
@@ -42,12 +42,14 @@ export default class DashboardScreen extends Component {
 
   renderItem = ({ item }) => (
 
-    <View style={{ width: wp(90), flexDirection: 'row', padding: wp(3), alignItems: 'center', justifyContent: 'space-between' }}>
+    <View style={{ width: wp(90), flexDirection: 'row', padding: wp(3), alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#e5f9ff' }}>
       <View style={{ width: wp(75), flexDirection: 'column' }}>
         <Text>{item.title}</Text>
         <Text>{item.author}</Text>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity
+
+        onPress={()=>this.onPlayBtn(item)}>
         <Image
           source={require('../Image/PlayIcon.png')}
           style={{ width: 40, height: 40 }}
@@ -78,7 +80,13 @@ export default class DashboardScreen extends Component {
     })
   }
 
+  onPlayBtn = (item) => {
+    this.setState({ isModalVisible: !this.state.isModalVisible }, () => {
+      this.props.navigation.navigate("Home", {data: item});
 
+    });
+
+  }
   showModal = () => {
     this.setState({ isModalVisible: !this.state.isModalVisible });
   };
@@ -104,8 +112,10 @@ export default class DashboardScreen extends Component {
         </View>
 
         {/* --------------------------------------------------------------------------------------------- */}
-
-        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ maxHeight: 200, marginTop: hp(5) }}>
+        <View style={{ marginTop: 30, alignSelf: 'flex-start', marginLeft: 20 }}>
+          <Text style={{ fontSize: 24, color: 'gray', fontWeight: '200' }}>Moods & Collections</Text>
+        </View>
+        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ maxHeight: 200, marginTop: hp(2) }}>
           <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
             <NeuView color='#eef2f9' height={170} width={130} borderRadius={20} convex>
               <Image
@@ -150,6 +160,7 @@ export default class DashboardScreen extends Component {
             <Modal isVisible={this.state.isModalVisible}
               animationIn={'slideInUp'}
               animationOut={'slideOutDown'}
+
               animationInTiming={1000}
               animationOutTiming={1000}
               hideModalContentWhileAnimating={true}
@@ -161,9 +172,9 @@ export default class DashboardScreen extends Component {
 
               style={{ width: '100%', height: '70%', alignSelf: 'center' }}
             >
-              <View style={{ maxHeight: hp(90), justifyContent: 'flex-end', marginTop: hp(12), marginBottom: -20, alignItems: 'center', backgroundColor: '#eef2f9', borderTopLeftRadius: 30, borderTopRightRadius: 30 }}>
+              <View style={{ maxHeight: hp(90), justifyContent: 'flex-end', marginTop: hp(12), marginBottom: -20, alignItems: 'center', backgroundColor: '#e5f9ff', borderTopLeftRadius: 30, borderTopRightRadius: 30 }}>
                 <TouchableOpacity onPress={this.showModal}>
-                  <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#eef2f9', width: 60, height: 60, borderRadius: 50, marginTop: -30, zIndex: 1 }}>
+                  <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#e5f9ff', width: 60, height: 60, borderRadius: 50, marginTop: -30, zIndex: 1 }}>
                     <Image
                       style={{ width: 50, height: 50, }}
                       source={require('../Image/close.png')}
@@ -187,7 +198,7 @@ export default class DashboardScreen extends Component {
                   source={require('../Image/album.png')}
                   borderRadius={20}
                 />
-                <Text style={{ fontSize: 20, padding: 10 }}>All Songs</Text>
+                <Text style={{ fontSize: 20, padding: 10, color: 'gray' }}>All Songs</Text>
               </View>
             </NeuView>
           </TouchableOpacity>
@@ -201,21 +212,7 @@ export default class DashboardScreen extends Component {
                   source={require('../Image/artist.png')}
                   borderRadius={20}
                 />
-                <Text style={{ fontSize: 20, padding: 10 }}>Albums</Text>
-              </View>
-            </NeuView>
-          </TouchableOpacity>
-        </View>
-        <View style={{ marginTop: 15 }}>
-          <TouchableOpacity>
-            <NeuView color='#eef2f9' height={hp(7)} width={wp(90)} borderRadius={10} >
-              <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
-                <Image
-                  style={{ width: 35, height: 35, }}
-                  source={require('../Image/artist.png')}
-                  borderRadius={20}
-                />
-                <Text style={{ fontSize: 20, padding: 10 }}>Artists</Text>
+                <Text style={{ fontSize: 20, padding: 10, color: 'gray' }}>Albums</Text>
               </View>
             </NeuView>
           </TouchableOpacity>
@@ -230,7 +227,22 @@ export default class DashboardScreen extends Component {
                   source={require('../Image/fav.png')}
                   borderRadius={20}
                 />
-                <Text style={{ fontSize: 20, padding: 10 }}>Favorites</Text>
+                <Text style={{ fontSize: 20, padding: 10, color: 'gray' }}>Favorites</Text>
+              </View>
+            </NeuView>
+          </TouchableOpacity>
+        </View>
+        <View style={{ marginTop: 15 }}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("Setting")}>
+            <NeuView color='#eef2f9' height={hp(7)} width={wp(90)} borderRadius={10} >
+
+              <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
+                <Image
+                  style={{ width: 35, height: 35, }}
+                  source={require('../Image/setting.png')}
+                  borderRadius={20}
+                />
+                <Text style={{ fontSize: 20, padding: 10, color: 'gray' }}>Settings</Text>
               </View>
             </NeuView>
           </TouchableOpacity>

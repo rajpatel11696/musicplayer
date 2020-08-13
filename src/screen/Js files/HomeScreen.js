@@ -1,12 +1,47 @@
 import React, { Component } from 'react';
 import { View, Text, StatusBar, Image, TouchableOpacity, Slider } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
-import { NeuView, NeuProgressBar } from 'react-native-neu-element';
+import { NeuView } from 'react-native-neu-element';
 import Animated, { Easing } from 'react-native-reanimated';
 import { hp, wp } from '../../../Dimension';
+import Sound from 'react-native-sound';
+
+
 const { Value, Clock, concat } = Animated;
 export default class HomeScreen extends Component {
+constructor(props){
+  super(props)
+  let whoosh= null
+}
+  state = {
+    isPlay: true,
+    whoosh: null
+
+  }
+
+  componentDidMount() {
+    var whoosh = new Sound('/storage/emulated/0/UCDownloads/Kamariya-Aastha-Gill Sachin-Sanghvi Jigar-Saraiya Divya-Kumar.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        console.log('failed to load the sound', error);
+        return;
+      }
+      // loaded successfully
+      console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
+
+      // Play the sound with an onEnd callback
+      whoosh.play((success) => {
+        if (success) {
+          console.log('successfully finished playing');
+        } else {
+          console.log('playback failed due to audio decoding errors');
+        }
+      });
+    });
+    this.setState({
+      whoosh: whoosh
+    })
+  }
+  // /storage/emulated/0/UCDownloads/Kamariya-Aastha-Gill Sachin-Sanghvi Jigar-Saraiya Divya-Kumar.mp3
+
   render() {
     const progressStyle = {
       width: wp(38),
@@ -63,7 +98,7 @@ export default class HomeScreen extends Component {
         <View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: hp(7) }}>
 
-            <Text style={{ fontSize: 15, color: 'gray', fontWeight: '700', marginRight:wp(50) }}>1:21</Text>
+            <Text style={{ fontSize: 15, color: 'gray', fontWeight: '700', marginRight: wp(50) }}>1:21</Text>
             <Text style={{ fontSize: 15, color: 'gray', fontWeight: '700', }}>3:46</Text>
           </View>
 
@@ -75,7 +110,7 @@ export default class HomeScreen extends Component {
           maximumValue={1}
           minimumTrackTintColor="#8AAAFF"
           maximumTrackTintColor="#DAE6F4"
-          
+
           thumbTintColor="#7B9BFF" />
 
 
@@ -92,7 +127,16 @@ export default class HomeScreen extends Component {
 
             </NeuView>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+            if (this.state.isPlay){
+              this.setState({isPlay: false}, () => {this.state.whoosh.pause();})
+            }
+            else{
+              this.setState({isPlay: true}, () => {this.state.whoosh.play();})
+
+            }
+          }
+          } >
             <NeuView color='#99ccff' height={80} width={80} borderRadius={50} customLightShadow={{ offsetX: 10, offsetY: 6 }} convex>
 
               <Image

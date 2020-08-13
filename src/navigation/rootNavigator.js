@@ -8,8 +8,11 @@ import CreateAccScreen from '../Screen/Js files/CreateAccScreen';
 import LockScreen from '../Screen/Js files/LockScreen';
 import WelcomeScreen from '../Screen/Js files/WelcomeScreen';
 import ProfileScreen from '../Screen/Js files/ProfileScreen';
-import LottieScreen from '../Screen/Js files/LottieScreen';
 import HomeScreen from '../Screen/Js files/HomeScreen';
+import SettingScreen from '../Screen/Js files/SettingScreen';
+import MusiqueAlarm from '../Screen/Js files/MusiqueAlarm';
+import ThemeScreen from '../Screen/Js files/ThemeScreen';
+import FaQScreen from '../Screen/Js files/FaQScreen';
 
 const Stack = createStackNavigator();
 
@@ -22,12 +25,15 @@ function App() {
         }}>
 <Stack.Screen name="Welcome" component={WelcomeScreen} />
 <Stack.Screen name="Dashboard" component={DashboardScreen} />
+<Stack.Screen name="FaQ" component={FaQScreen} />
 <Stack.Screen name="Home" component={HomeScreen}/> 
 <Stack.Screen name="Lock" component={LockScreen} />
+<Stack.Screen name="Clock" component={MusiqueAlarm} />
 <Stack.Screen name="Signup" component={CreateAccScreen} />
 <Stack.Screen name="Login" component={LoginScreen} />
 <Stack.Screen name="Profile" component={ProfileScreen} />
-<Stack.Screen name="Lottie" component={LottieScreen} />
+<Stack.Screen name="Setting" component={SettingScreen} />
+<Stack.Screen name="Theme" component={ThemeScreen} />
       
      
       </Stack.Navigator>

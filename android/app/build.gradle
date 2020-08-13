@@ -130,6 +130,7 @@ android {
 
     defaultConfig {
         applicationId "com.musicplayer"
+        multiDexEnabled true
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -192,6 +193,8 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation project(':react-native-get-music-files')
+    implementation 'com.android.support:multidex:1.0.3'
+
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
