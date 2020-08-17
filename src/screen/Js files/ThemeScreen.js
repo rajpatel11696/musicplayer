@@ -1,24 +1,27 @@
 import React, { Component } from 'react'
 import { Text, View, Image } from 'react-native'
-import AppHeader from '../Components/AppHeader'
 import { hp, wp } from '../../../Dimension';
 import { NeuButton } from 'react-native-neu-element';
 import { RadioButton, Switch } from 'react-native-paper';
+import { changeDarkMode } from '../../Action/ActionConteiner';
+import { connect } from 'react-redux';
 
-export default class componentName extends Component {
+class ThemeScreen extends Component {
 
     state = {
         checked: 'first',
-        isSwitchOn: false,
+        isSwitchOn: this.props.isDark,
     };
 
 
     render() {
+
+        const isDark = this.props.isDark
         const { checked } = this.state;
         const { isSwitchOn } = this.state;
         return (
 
-            <View style={{ flex: 1, backgroundColor: '#e5f9ff' }}>
+            <View style={{ flex: 1, backgroundColor: isDark?'#303234': '#e5f9ff' }}>
                 <Text style={{ fontSize: 22, marginLeft: wp(2), marginTop: hp(10), color: 'gray' }}>Theme</Text>
                 <View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginRight: wp(5) }}>
@@ -42,7 +45,12 @@ export default class componentName extends Component {
                         <Text style={{ fontSize: 20, color: 'gray', marginTop: hp(1), marginLeft: wp(6) }}>Black Mode</Text>
                         <Switch
                             value={isSwitchOn}
-                            onValueChange={() => { this.setState({ isSwitchOn: !isSwitchOn }); }
+                            onValueChange={() => { 
+                                this.setState({ 
+                                    isSwitchOn: !isSwitchOn 
+                                },()=>{
+                                    this.props.changeDarkMode(this.state.isSwitchOn)
+                                }); }
                             }
                         />
                     </View>
@@ -50,7 +58,7 @@ export default class componentName extends Component {
                 </View>
                 <View style={{justifyContent: 'center', alignItems:'center', marginTop: hp(55)}}>                
                     <NeuButton
-                    color="#eef2f9"
+                    color={isDark?'#303234': '#eef2f9'}
                     width={wp(80)}
                     height={hp(7)}
                     borderRadius={50}
@@ -63,3 +71,16 @@ export default class componentName extends Component {
         )
     }
 }
+
+
+const mapStateToProps = (state) => ({
+    isDark:state.mainReducer.darkMode
+  })
+  
+  const mapDispatchToProps = dispatch=>{
+    return{
+        changeDarkMode:(darkMode)=>dispatch(changeDarkMode(darkMode))
+    }
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(ThemeScreen)

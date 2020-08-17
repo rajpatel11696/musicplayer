@@ -4,28 +4,44 @@ import { NeuView } from 'react-native-neu-element';
 import Animated, { Easing } from 'react-native-reanimated';
 import { hp, wp } from '../../../Dimension';
 import Sound from 'react-native-sound';
-
+import { connect } from 'react-redux'
+import { storeMusicList } from '../../Action/ActionConteiner';
 
 const { Value, Clock, concat } = Animated;
-export default class HomeScreen extends Component {
-constructor(props){
-  super(props)
-  let whoosh= null
-}
+
+class HomeScreen extends Component {
+  constructor(props) {
+    super(props)
+    let whoosh = null
+  }
   state = {
     isPlay: true,
-    whoosh: null
-
+    whoosh: null,
+    playSeconds: 0,
+    duration: 0,
   }
 
   componentDidMount() {
-    var whoosh = new Sound('/storage/emulated/0/UCDownloads/Kamariya-Aastha-Gill Sachin-Sanghvi Jigar-Saraiya Divya-Kumar.mp3', Sound.MAIN_BUNDLE, (error) => {
+    this.timeout = setInterval(() => {
+      this.state.whoosh.getCurrentTime((seconds, isPlaying) => {
+
+        this.setState({
+          playSeconds: seconds
+        }, () => {
+
+          console.log("Sec>>>>>>>>>>>>" + this.state.playSeconds)
+        });
+      })
+    }, 1000);
+    console.log(JSON.stringify(this.props.route.params.data))
+    var whoosh = new Sound(this.props.route.params.data.path, Sound.MAIN_BUNDLE, (error) => {
       if (error) {
         console.log('failed to load the sound', error);
         return;
       }
       // loaded successfully
       console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
+      this.setState({ duration: whoosh.getDuration() });
 
       // Play the sound with an onEnd callback
       whoosh.play((success) => {
@@ -36,13 +52,34 @@ constructor(props){
         }
       });
     });
+
     this.setState({
       whoosh: whoosh
     })
   }
-  // /storage/emulated/0/UCDownloads/Kamariya-Aastha-Gill Sachin-Sanghvi Jigar-Saraiya Divya-Kumar.mp3
+  SectoMin = (millis) => {
+
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+
+  }
+
+  SecoundtoMin = (value) => {
+    var sec = value % 60 ? value % 60 : '00'
+    var secPae = parseInt(sec) > 9 ? parseInt(sec) : '0' + parseInt(sec)
+    return Math.floor(value / 60) + ":" + secPae
+
+  }
+  onSliderEditing = value => {
+
+    this.state.whoosh.setCurrentTime(value);
+    this.setState({ playSeconds: value });
+  }
 
   render() {
+    const isDark = this.props.isDark
+
     const progressStyle = {
       width: wp(38),
       height: hp(1.2),
@@ -51,12 +88,12 @@ constructor(props){
     };
     return (
 
-      <View style={{ backgroundColor: '#e5f9ff', flex: 1, }}>
+      <View style={{ backgroundColor: isDark ? '#303234' : '#e5f9ff', flex: 1, }}>
         <StatusBar hidden={true} />
 
         <View style={{ flexDirection: "row", justifyContent: 'space-around', alignItems: 'center', marginTop: hp(5.5) }}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate("Dashboard")}>
-            <NeuView color='#eef2f9' height={65} width={65} borderRadius={50} concave>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={65} width={65} borderRadius={50} concave>
               <Image
                 style={{ width: 40, height: 40 }}
                 source={require('../Image/Back_Arrow.png')}
@@ -68,7 +105,7 @@ constructor(props){
             <Text style={{ fontSize: 20, color: '#808080' }}>PLAYING NOW</Text>
           </View>
           <TouchableOpacity>
-            <NeuView color='#eef2f9' height={65} width={65} borderRadius={50} concave>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={65} width={65} borderRadius={50} concave>
               <Image
                 style={{ width: 40, height: 40 }}
                 source={require('../Image/Menu.png')} />
@@ -77,7 +114,7 @@ constructor(props){
         </View>
 
         <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp(7) }}>
-          <NeuView color='#eef2f9' height={200} width={200} borderRadius={100} inset>
+          <NeuView color={isDark ? '#303234' : '#eef2f9'} height={200} width={200} borderRadius={100} inset>
             <Image
               style={{ width: 180, height: 180, borderRadius: 100 }}
               source={require('../Image/Album_Cover.jpg')}
@@ -87,10 +124,10 @@ constructor(props){
 
         <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp(5) }}>
           <View>
-            <Text style={{ fontSize: 30, color: '#5c5757', fontWeight: '500' }}>LOST IT</Text>
+            <Text style={{ fontSize: 30, color: '#5c5757', fontWeight: '500' }}>{this.props.route.params.data.title}</Text>
           </View>
           <View>
-            <Text style={{ fontSize: 24, color: '#808080' }}>Flume ft. Vic Methos</Text>
+            <Text style={{ fontSize: 24, color: '#808080' }}>{this.props.route.params.data.author}</Text>
           </View>
         </View>
 
@@ -98,19 +135,20 @@ constructor(props){
         <View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: hp(7) }}>
 
-            <Text style={{ fontSize: 15, color: 'gray', fontWeight: '700', marginRight: wp(50) }}>1:21</Text>
-            <Text style={{ fontSize: 15, color: 'gray', fontWeight: '700', }}>3:46</Text>
+            <Text style={{ fontSize: 15, color: 'gray', fontWeight: '700', marginRight: wp(50) }}>{this.SecoundtoMin(this.state.playSeconds)}</Text>
+            <Text style={{ fontSize: 15, color: 'gray', fontWeight: '700', }}>{this.SectoMin(this.props.route.params.data.duration)}</Text>
           </View>
 
         </View>
 
         <Slider
+
+          onValueChange={this.onSliderEditing}
           style={{ marginLeft: wp(5), width: wp(85) }}
-          minimumValue={0}
-          maximumValue={1}
+          maximumValue={this.state.duration}
           minimumTrackTintColor="#8AAAFF"
           maximumTrackTintColor="#DAE6F4"
-
+          value={this.state.playSeconds}
           thumbTintColor="#7B9BFF" />
 
 
@@ -119,7 +157,7 @@ constructor(props){
 
         <View style={{ flexDirection: "row", justifyContent: 'space-evenly', marginTop: hp(5) }}>
           <TouchableOpacity>
-            <NeuView color='#eef2f9' height={80} width={80} borderRadius={50} convex>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={80} width={80} borderRadius={50} convex>
               <Image
                 style={{ width: 45, height: 45 }}
                 source={require('../Image/Backward.png')}
@@ -128,26 +166,30 @@ constructor(props){
             </NeuView>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => {
-            if (this.state.isPlay){
-              this.setState({isPlay: false}, () => {this.state.whoosh.pause();})
+            if (this.state.isPlay) {
+              this.setState({ isPlay: false }, () => { this.state.whoosh.pause(); })
             }
-            else{
-              this.setState({isPlay: true}, () => {this.state.whoosh.play();})
+            else {
+              this.setState({ isPlay: true }, () => { this.state.whoosh.play(); })
 
             }
           }
           } >
-            <NeuView color='#99ccff' height={80} width={80} borderRadius={50} customLightShadow={{ offsetX: 10, offsetY: 6 }} convex>
-
-              <Image
+            <NeuView color={isDark ? '#303234' : '#99ccff'} height={80} width={80} borderRadius={50} convex>
+              {this.state.isPlay ? <Image
                 style={{ width: 45, height: 45 }}
                 source={require('../Image/Pause.png')}
               />
+                : <Image
+                  style={{ width: 45, height: 45 }}
+                  source={require('../Image/plybtn.png')}
+                />
+              }
 
             </NeuView>
           </TouchableOpacity>
           <TouchableOpacity>
-            <NeuView color='#eef2f9' height={80} width={80} borderRadius={50} convex>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={80} width={80} borderRadius={50} convex>
               <Image
                 style={{ width: 45, height: 45 }}
                 source={require('../Image/Forward.png')}
@@ -159,3 +201,14 @@ constructor(props){
     );
   }
 }
+const mapStateToProps = (state) => ({
+  isDark: state.mainReducer.darkMode
+})
+
+const mapDispatchToProps = dispatch => {
+  return {
+    storeMusicList: (musics) => dispatch(storeMusicList(darkMode))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)

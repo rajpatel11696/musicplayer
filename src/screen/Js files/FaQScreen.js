@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { Container, Header, Content, Accordion } from "native-base";
-import AppHeader from '../Components/AppHeader'
+import { connect } from 'react-redux'
+import { storeMusicList } from '../../Action/ActionConteiner';
+
+
 
 const dataArray = [
     { title: "Is Musique free?", content: "Yes, Musique is completely free for listnening to music from a base of over the songs in your mobile. You just need to open the app and enjoy your favorite songs." },
@@ -15,19 +18,32 @@ const dataArray = [
 
 ];
 
-export default class componentName extends Component {
+class FaQScreen extends Component {
     render() {
+        const isDark = this.props.isDark
+
         return (
-                <Container style={{ flex: 1, backgroundColor: '#e5f9ff' }}>
+                <Container style={{ flex: 1, backgroundColor: isDark? '#303234': '#e5f9ff' }}>
                     <Header />
                     <Content padder>
                         <Accordion dataArray={dataArray} icon="add"
                             expandedIcon="remove"
-                            headerStyle={{ backgroundColor: "#ccf3ff" }}
-                            contentStyle={{ backgroundColor: "#e5f9ff" }}
+                            headerStyle={{ backgroundColor:  isDark? '#27282a': '#ccf3ff' }}
+                            contentStyle={{ backgroundColor:  isDark? '#303234': '#e5f9ff' }}
                         />
                     </Content>
                 </Container>
         )
     }
 }
+const mapStateToProps = (state) => ({
+    isDark:state.mainReducer.darkMode
+  })
+  
+  const mapDispatchToProps = dispatch=>{
+    return{
+        storeMusicList:(musics)=>dispatch(storeMusicList(darkMode))
+    }
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(FaQScreen)

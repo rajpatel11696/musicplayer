@@ -6,8 +6,10 @@ import { hp, wp } from '../../../Dimension';
 import Modal from 'react-native-modal';
 import MusicFiles from 'react-native-get-music-files';
 import RBSheet from "react-native-raw-bottom-sheet";
+import { connect } from 'react-redux'
+import { storeMusicList } from '../../Action/ActionConteiner';
 
-export default class DashboardScreen extends Component {
+class DashboardScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -21,8 +23,8 @@ export default class DashboardScreen extends Component {
   }
   renderHeaderItem = () => (
     <View
-      style={{ width: wp(90), padding: wp(3), alignItems: 'center', justifyContent: 'center', backgroundColor: '#e5f9ff' }}>
-      <Text style={{ fontSize: 26 }}>All Songs</Text>
+      style={{ width: wp(90), padding: wp(3), alignItems: 'center', justifyContent: 'center', backgroundColor: this.props.isDark ? '#303234' : '#e5f9ff' }}>
+      <Text style={{ fontSize: 26, color: 'gray' }}>All Songs</Text>
       <View style={{ alignItems: 'center', justifyContent: 'center', padding: 20 }}>
         <NeuInput
           prefix={
@@ -32,7 +34,7 @@ export default class DashboardScreen extends Component {
             />
           }
           placeholder='Search...'
-          width={350} height={50} color='#eef2f9' borderRadius={50}
+          width={350} height={50} color={this.props.isDark ? '#303234' : '#eef2f9'} borderRadius={50}
         />
       </View>
 
@@ -42,14 +44,14 @@ export default class DashboardScreen extends Component {
 
   renderItem = ({ item }) => (
 
-    <View style={{ width: wp(90), flexDirection: 'row', padding: wp(3), alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#e5f9ff' }}>
+    item.title !== null && <View style={{ width: wp(90), flexDirection: 'row', padding: wp(3), alignItems: 'center', justifyContent: 'space-between', backgroundColor: this.props.isDark ? '#303234' : '#e5f9ff' }}>
       <View style={{ width: wp(75), flexDirection: 'column' }}>
-        <Text>{item.title}</Text>
-        <Text>{item.author}</Text>
+        <Text style={{ color: 'gray', fontSize: 18 }}>{item.title}</Text>
+        <Text style={{ color: 'gray', fontSize: 13 }}>{item.author}</Text>
       </View>
       <TouchableOpacity
 
-        onPress={()=>this.onPlayBtn(item)}>
+        onPress={() => this.onPlayBtn(item)}>
         <Image
           source={require('../Image/PlayIcon.png')}
           style={{ width: 40, height: 40 }}
@@ -60,10 +62,12 @@ export default class DashboardScreen extends Component {
   );
 
   componentDidMount() {
+    console.log("Reduxx>>>" + this.props.isDark)
     MusicFiles.getAll({
       id: true, // get id
       artist: true, // get artist
       duration: true, // get duration
+      album: true,
       genre: true, // get genre
       title: true, // get title
       fileName: true, // get file name
@@ -82,7 +86,7 @@ export default class DashboardScreen extends Component {
 
   onPlayBtn = (item) => {
     this.setState({ isModalVisible: !this.state.isModalVisible }, () => {
-      this.props.navigation.navigate("Home", {data: item});
+      this.props.navigation.navigate("Home", { data: item });
 
     });
 
@@ -90,11 +94,12 @@ export default class DashboardScreen extends Component {
   showModal = () => {
     this.setState({ isModalVisible: !this.state.isModalVisible });
   };
-
   render() {
+    const isDark = this.props.isDark
+
     return (
 
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#e5f9ff' }}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: isDark ? '#303234' : '#e5f9ff' }}>
 
         <StatusBar hidden={true} />
 
@@ -107,7 +112,7 @@ export default class DashboardScreen extends Component {
               />
             }
             placeholder='Search...'
-            width={350} height={50} color='#eef2f9' borderRadius={50}
+            width={350} height={50} color={isDark ? '#303234' : '#eef2f9'} borderRadius={50}
           />
         </View>
 
@@ -117,7 +122,7 @@ export default class DashboardScreen extends Component {
         </View>
         <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ maxHeight: 200, marginTop: hp(2) }}>
           <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color='#eef2f9' height={170} width={130} borderRadius={20} convex>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={170} width={130} borderRadius={20} convex>
               <Image
                 style={{ width: 125, height: 160, }}
                 source={require('../Image/bolly.jpg')}
@@ -126,7 +131,7 @@ export default class DashboardScreen extends Component {
             </NeuView>
           </TouchableOpacity>
           <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color='#eef2f9' height={170} width={130} borderRadius={20} convex>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={170} width={130} borderRadius={20} convex>
               <Image
                 style={{ width: 125, height: 160, }}
                 source={require('../Image/old.jpg')}
@@ -135,7 +140,7 @@ export default class DashboardScreen extends Component {
             </NeuView>
           </TouchableOpacity>
           <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color='#eef2f9' height={170} width={130} borderRadius={20} convex>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={170} width={130} borderRadius={20} convex>
               <Image
                 style={{ width: 125, height: 160, }}
                 source={require('../Image/ppl.jpg')}
@@ -144,7 +149,7 @@ export default class DashboardScreen extends Component {
             </NeuView>
           </TouchableOpacity>
           <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color='#eef2f9' height={170} width={130} borderRadius={20} convex>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={170} width={130} borderRadius={20} convex>
               <Image
                 style={{ width: 125, height: 160, }}
                 source={require('../Image/bolly.jpg')}
@@ -160,7 +165,6 @@ export default class DashboardScreen extends Component {
             <Modal isVisible={this.state.isModalVisible}
               animationIn={'slideInUp'}
               animationOut={'slideOutDown'}
-
               animationInTiming={1000}
               animationOutTiming={1000}
               hideModalContentWhileAnimating={true}
@@ -168,18 +172,22 @@ export default class DashboardScreen extends Component {
               backdropTransitionOutTiming={1000}
               onBackButtonPress={this.showModal}
               onBackdropPress={this.showModal}
-              swipeDirection={'down'}
 
               style={{ width: '100%', height: '70%', alignSelf: 'center' }}
             >
-              <View style={{ maxHeight: hp(90), justifyContent: 'flex-end', marginTop: hp(12), marginBottom: -20, alignItems: 'center', backgroundColor: '#e5f9ff', borderTopLeftRadius: 30, borderTopRightRadius: 30 }}>
+              <View style={{ maxHeight: hp(90), justifyContent: 'flex-end', marginTop: hp(12), marginBottom: -20, alignItems: 'center', backgroundColor: isDark ? '#303234' : '#e5f9ff', borderTopLeftRadius: 30, borderTopRightRadius: 30 }}>
                 <TouchableOpacity onPress={this.showModal}>
-                  <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#e5f9ff', width: 60, height: 60, borderRadius: 50, marginTop: -30, zIndex: 1 }}>
-                    <Image
-                      style={{ width: 50, height: 50, }}
-                      source={require('../Image/close.png')}
-                      borderRadius={20}
+                  <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: isDark ? '#303234' : '#e5f9ff', width: 60, height: 60, borderRadius: 50, marginTop: -30, zIndex: 1 }}>
+                    {isDark ? <Image
+                      style={{ width: 45, height: 45 }}
+                      source={require('../Image/close_dark.png')}
                     />
+                      : <Image
+                        style={{ width: 45, height: 45 }}
+                        source={require('../Image/close.png')}
+                      />
+                    }
+
                   </View>
                 </TouchableOpacity>
                 {this.state.isDataload ? <FlatList
@@ -191,7 +199,7 @@ export default class DashboardScreen extends Component {
                 }
               </View>
             </Modal>
-            <NeuView color='#eef2f9' height={hp(7)} width={wp(90)} borderRadius={10}>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={hp(7)} width={wp(90)} borderRadius={10}>
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
                 <Image
                   style={{ width: 35, height: 35, }}
@@ -205,7 +213,7 @@ export default class DashboardScreen extends Component {
         </View>
         <View style={{ marginTop: 15 }}>
           <TouchableOpacity>
-            <NeuView color='#eef2f9' height={hp(7)} width={wp(90)} borderRadius={10} >
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={hp(7)} width={wp(90)} borderRadius={10} >
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
                 <Image
                   style={{ width: 35, height: 35, }}
@@ -219,7 +227,7 @@ export default class DashboardScreen extends Component {
         </View>
         <View style={{ marginTop: 15 }}>
           <TouchableOpacity>
-            <NeuView color='#eef2f9' height={hp(7)} width={wp(90)} borderRadius={10} >
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={hp(7)} width={wp(90)} borderRadius={10} >
 
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
                 <Image
@@ -234,7 +242,7 @@ export default class DashboardScreen extends Component {
         </View>
         <View style={{ marginTop: 15 }}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate("Setting")}>
-            <NeuView color='#eef2f9' height={hp(7)} width={wp(90)} borderRadius={10} >
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={hp(7)} width={wp(90)} borderRadius={10} >
 
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
                 <Image
@@ -251,3 +259,14 @@ export default class DashboardScreen extends Component {
     )
   }
 }
+const mapStateToProps = (state) => ({
+  isDark: state.mainReducer.darkMode
+})
+
+const mapDispatchToProps = dispatch => {
+  return {
+    storeMusicList: (musics) => dispatch(storeMusicList(darkMode))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardScreen)

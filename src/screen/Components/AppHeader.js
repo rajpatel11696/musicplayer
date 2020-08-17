@@ -3,10 +3,10 @@ import { Appbar, Switch } from 'react-native-paper';
 import { Image, TouchableOpacity, Text } from 'react-native';
 import { wp } from '../../../Dimension';
 
-export default function MyHeader() {
+export default function MyHeader(props) {
     
     return (
-        <Appbar.Header style={{ backgroundColor: '#ccf3ff' }}>
+        <Appbar.Header style={{backgroundColor: props.backgroundColor }}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate("Setting")}>
                 <Image
                     style={{ width: 35, height: 35, marginLeft: wp(2) }}
@@ -18,4 +18,5 @@ export default function MyHeader() {
         </Appbar.Header>
     );
 };
+// ccf3ff
 

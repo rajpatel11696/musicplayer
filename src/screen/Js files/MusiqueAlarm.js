@@ -5,18 +5,20 @@ import AppHeader from '../Components/AppHeader'
 import MyHeader from '../Components/AppHeader'
 import { hp, wp } from '../../../Dimension';
 import { NeuButton } from 'react-native-neu-element';
+import { connect } from 'react-redux'
+import { storeMusicList } from '../../Action/ActionConteiner';
 
-
-
-export default class componentName extends Component {
-
+class MusiqueAlarm extends Component {
 
     render() {
-        return (
-            <View style={{ flex: 1, backgroundColor: '#e5f9ff' }}>
-                <MyHeader />
 
-                <View style={{ borderWidth: 0.8, borderColor: '#e6e6e6', width: wp(90),alignSelf: 'center', justifyContent: 'center', marginTop: hp(50) }}>
+        const isDark = this.props.isDark
+
+        return (
+            <View style={{ flex: 1, backgroundColor: isDark?'#303234':'#e5f9ff' }}>
+                <MyHeader backgroundColor={isDark? '#27282a' : '#c3f3ff'}/>
+
+                <View style={{ borderWidth: 0.8, borderColor: isDark?'#292B2E': '#e6e6e6', width: wp(90),alignSelf: 'center', justifyContent: 'center', marginTop: hp(50) }}>
                 </View>
                 <View style={{ marginTop: hp(3), marginLeft: wp(6) }}>
                     <Text style={{ fontSize: 20, color: 'gray' }}>Repeat</Text>
@@ -31,7 +33,7 @@ export default class componentName extends Component {
                     <Text style={{ fontSize: 16, color: 'gray' }}>S</Text>
 
                 </View>
-                <View style={{ borderWidth: 0.8, borderColor: '#e6e6e6', width: wp(90), justifyContent: 'center', marginTop: hp(3), alignSelf: 'center' }}>
+                <View style={{ borderWidth: 0.8, borderColor: isDark?'#292B2E': '#e6e6e6', width: wp(90), justifyContent: 'center', marginTop: hp(3), alignSelf: 'center' }}>
                 </View>
                 <View style={{ marginTop: hp(3), marginLeft: wp(6), flexDirection: 'row', justifyContent: 'space-between',  }}>
                     <Text style={{ fontSize: 20, color: 'gray' }}>Alarm Ringtone</Text>
@@ -43,11 +45,11 @@ export default class componentName extends Component {
                         borderRadius={20} />
                 </View>
                 <Text style={{ fontSize: 14, color: 'gray', marginLeft: wp(6) }}>Alarm : default song</Text>
-                <View style={{ borderWidth: 0.8, borderColor: '#e6e6e6', width: wp(90), justifyContent: 'center', marginTop: hp(3),alignSelf: 'center' }}>
+                <View style={{ borderWidth: 0.8, borderColor: isDark?'#292B2E': '#e6e6e6', width: wp(90), justifyContent: 'center', marginTop: hp(3),alignSelf: 'center' }}>
                 </View>
                 <View style={{justifyContent: 'center', alignItems:'center', marginTop: hp(5)}}>                
                     <NeuButton
-                    color="#eef2f9"
+                    color={isDark?'#303234': '#eef2f9'}
                     width={wp(80)}
                     height={hp(7)}
                     borderRadius={50}
@@ -60,3 +62,15 @@ export default class componentName extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    isDark:state.mainReducer.darkMode
+  })
+  
+  const mapDispatchToProps = dispatch=>{
+    return{
+        storeMusicList:(musics)=>dispatch(storeMusicList(darkMode))
+    }
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(MusiqueAlarm)

@@ -4,12 +4,15 @@ import { NeuInput, NeuView } from 'react-native-neu-element';
 import { hp, wp } from '../../../Dimension';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Divider} from 'react-native-paper';
+import { connect } from 'react-redux'
+import { storeMusicList } from '../../Action/ActionConteiner';
 
-
-export default class componentName extends Component {
+class SettingScreen extends Component {
     render() {
+        const isDark = this.props.isDark
+
         return (
-            <View style={{ flex: 1, backgroundColor: '#e5f9ff' }}>
+            <View style={{ flex: 1, backgroundColor: isDark?'#303234': '#e5f9ff' }}>
                 <View style={{ marginTop: hp(4), flexDirection:'row', justifyContent:'center' }}>
                     <Text style={{ fontSize: 30, color: 'gray', justifyContent: 'center', alignSelf: 'center' }}> Setting </Text>
                  
@@ -18,7 +21,7 @@ export default class componentName extends Component {
                     <Text style={{ fontSize: 26, color: 'orange' }}>Darina</Text>
                 </View>
                 <View style={{ flexDirection: 'row', marginTop: hp(4), justifyContent: 'space-evenly' }}>
-                    <NeuView color='#eef2f9' height={90} width={90} borderRadius={16}>
+                    <NeuView color={isDark?'#303234': '#eef2f9'} height={90} width={90} borderRadius={16}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate("Clock")}>
                             <Image
                                 style={{ width: 45, height: 45 }}
@@ -27,7 +30,7 @@ export default class componentName extends Component {
                             />
                         </TouchableOpacity>
                     </NeuView>
-                    <NeuView color='#eef2f9' height={90} width={90} borderRadius={16}>
+                    <NeuView color={isDark?'#303234': '#eef2f9'} height={90} width={90} borderRadius={16}>
                         <TouchableOpacity>
                             <Image
                                 style={{ width: 45, height: 45 }}
@@ -37,7 +40,7 @@ export default class componentName extends Component {
                         </TouchableOpacity>
                     </NeuView>
 
-                    <NeuView color='#eef2f9' height={90} width={90} borderRadius={16}>
+                    <NeuView color={isDark?'#303234': '#eef2f9'} height={90} width={90} borderRadius={16}>
                         <TouchableOpacity>
                             <Image
                                 style={{ width: 55, height: 65 }}
@@ -49,7 +52,7 @@ export default class componentName extends Component {
                 </View>
 
                 <View style={{ marginTop: hp(4), alignItems: 'center' }}>
-                    <NeuView color='#eef2f9' height={hp(22)} width={wp(90)} borderRadius={10} >
+                    <NeuView color={isDark?'#303234': '#eef2f9'} height={hp(22)} width={wp(90)} borderRadius={10} >
                         <View style={{ flexDirection: 'row', }}>
                             <Text style={{ fontSize: 20, padding: 10, color: 'gray' }}>My Home</Text>
                             <Image
@@ -58,7 +61,7 @@ export default class componentName extends Component {
                                 borderRadius={20}
                             />
                         </View>
-                        <View style={{ borderWidth: 0.8, borderColor: '#e6e6e6', margin: 10, width: wp(90) }}>
+                        <View style={{ borderWidth: 0.8, borderColor:  isDark?'#292B2E': '#e6e6e6', margin: 10, width: wp(90) }}>
                         </View>
                         <View style={{ flexDirection: 'row', alignSelf: 'flex-start' }}>
                             <Text style={{ fontSize: 20, padding: 10, color: 'gray' }}>Quick Access</Text>
@@ -69,7 +72,7 @@ export default class componentName extends Component {
                             />
 
                         </View>
-                        <View style={{ borderWidth: 0.8, borderColor: '#e6e6e6', margin: 10, width: wp(90) }}>
+                        <View style={{ borderWidth: 0.8, borderColor: isDark?'#292B2E': '#e6e6e6', margin: 10, width: wp(90) }}>
                         </View>
                         <View style={{ flexDirection: 'row', alignSelf: 'flex-start' }}>
                             <Text style={{ fontSize: 20, padding: 10, color: 'gray' }}>Invite Friends</Text>
@@ -83,7 +86,9 @@ export default class componentName extends Component {
                 </View>
 
                 <View style={{ marginTop: hp(8), alignItems: 'center', justifyContent: 'center', }}>
-                    <NeuView color='#eef2f9' height={hp(30)} width={wp(90)} borderRadius={10} >
+                    <NeuView color={isDark?'#303234': '#eef2f9'} height={hp(30)} width={wp(90)} borderRadius={10} >
+                    <TouchableOpacity  onPress={() => this.props.navigation.navigate("Player")}>
+
                         <View style={{ flexDirection: 'row', alignSelf: 'flex-start' }}>
                             <Text style={{ fontSize: 20, padding: 10, color: 'gray' }}>Change Password</Text>
                             <Image
@@ -93,7 +98,8 @@ export default class componentName extends Component {
                             />
 
                         </View>
-                        <View style={{ borderWidth: 0.8, borderColor: '#e6e6e6', margin: 10, width: wp(90) }}>
+                        </TouchableOpacity>
+                        <View style={{ borderWidth: 0.8, borderColor: isDark?'#292B2E': '#e6e6e6', margin: 10, width: wp(90) }}>
                         </View>
                         <TouchableOpacity  onPress={() => this.props.navigation.navigate("FaQ")}>
 
@@ -107,7 +113,7 @@ export default class componentName extends Component {
 
                         </View>
                         </TouchableOpacity>
-                        <View style={{ borderWidth: 0.8, borderColor: '#e6e6e6', margin: 10, width: wp(90) }}>
+                        <View style={{ borderWidth: 0.8, borderColor: isDark?'#292B2E': '#e6e6e6', margin: 10, width: wp(90) }}>
                         </View>
                         <TouchableOpacity  onPress={() => this.props.navigation.navigate("Theme")}>
                         <View style={{ flexDirection: 'row', alignSelf: 'flex-start' }}>
@@ -120,7 +126,7 @@ export default class componentName extends Component {
                             />
                         </View>
                         </TouchableOpacity>
-                        <View style={{ borderWidth: 0.8, borderColor: '#e6e6e6', margin: 10, width: wp(90) }}>
+                        <View style={{ borderWidth: 0.8, borderColor: isDark?'#292B2E': '#e6e6e6', margin: 10, width: wp(90) }}>
                         </View>
                         <View style={{ flexDirection: 'row', alignSelf: 'flex-start' }}>
                             <Text style={{ fontSize: 20, padding: 10, color: 'orange' }}>Sign Out</Text>
@@ -131,3 +137,15 @@ export default class componentName extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    isDark:state.mainReducer.darkMode
+  })
+  
+  const mapDispatchToProps = dispatch=>{
+    return{
+        storeMusicList:(musics)=>dispatch(storeMusicList(darkMode))
+    }
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(SettingScreen)

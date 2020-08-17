@@ -13,6 +13,7 @@ import SettingScreen from '../Screen/Js files/SettingScreen';
 import MusiqueAlarm from '../Screen/Js files/MusiqueAlarm';
 import ThemeScreen from '../Screen/Js files/ThemeScreen';
 import FaQScreen from '../Screen/Js files/FaQScreen';
+import PlayerScreen from '../Screen/Js files/PlayerScreen';
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,7 @@ function App() {
 <Stack.Screen name="Profile" component={ProfileScreen} />
 <Stack.Screen name="Setting" component={SettingScreen} />
 <Stack.Screen name="Theme" component={ThemeScreen} />
+<Stack.Screen name="Player" component={PlayerScreen} />
       
      
       </Stack.Navigator>
