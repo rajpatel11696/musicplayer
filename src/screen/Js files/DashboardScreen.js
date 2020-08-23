@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View, StatusBar, Image, TouchableOpacity, ScrollView, Button, ActivityIndicator } from 'react-native';
+import { Text, View, StatusBar, Image, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { NeuInput, NeuView } from 'react-native-neu-element';
 import { hp, wp } from '../../../Dimension';
 import Modal from 'react-native-modal';
 import MusicFiles from 'react-native-get-music-files';
-import RBSheet from "react-native-raw-bottom-sheet";
 import { connect } from 'react-redux'
 import { storeMusicList } from '../../Action/ActionConteiner';
 
@@ -31,8 +30,7 @@ class DashboardScreen extends Component {
             <Image
               source={require('../Image/Search_btn.png')}
               style={{ width: 30, height: 30 }}
-            />
-          }
+            />}
           placeholder='Search...'
           width={350} height={50} color={this.props.isDark ? '#303234' : '#eef2f9'} borderRadius={50}
         />
@@ -103,7 +101,7 @@ class DashboardScreen extends Component {
 
         <StatusBar hidden={true} />
 
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: hp(4) }}>
           <NeuInput
             prefix={
               <Image
@@ -153,12 +151,90 @@ class DashboardScreen extends Component {
               <Image
                 style={{ width: 125, height: 160, }}
                 source={require('../Image/bolly.jpg')}
-                borderRadius={20}
-              />
+                borderRadius={20} />
             </NeuView>
           </TouchableOpacity>
         </ScrollView>
+
         {/* ----------------------------------------------------------------- */}
+
+        <View style={{ marginTop: 40, alignSelf: 'flex-start', marginLeft: 20}}>
+          <Text style={{ fontSize: 24, color: 'gray', fontWeight: '200' }}>Artists</Text>
+        </View>
+        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ maxHeight: 200, marginTop: hp(3)}}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("Artist")}style={{ marginHorizontal: 15, height: 200 }}>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
+              <Image
+                style={{ width: 110, height: 110, }}
+                source={require('../Image/Darshan.jpg')}
+                borderRadius={55} />
+            </NeuView>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
+            <Image
+                style={{ width: 110, height: 110, }}
+                source={require('../Image/Arijit.jpg')}
+                borderRadius={55} />
+            </NeuView>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
+            <Image
+                style={{ width: 110, height: 110, }}
+                source={require('../Image/Neha.jpg')}
+                borderRadius={55} />
+            </NeuView>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
+            <Image
+                style={{ width: 110, height: 110, }}
+                source={require('../Image/Tony.jpg')}
+                borderRadius={55} />
+            </NeuView>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
+            <Image
+                style={{ width: 110, height: 110, }}
+                source={require('../Image/Sunidhi.jpg')}
+                borderRadius={55} />
+            </NeuView>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
+            <Image 
+                style={{ width: 110, height: 110, }}
+                source={require('../Image/Atif.jpg')}
+                borderRadius={55} />
+            </NeuView>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
+            <Image
+                style={{ width: 110, height: 110, }}
+                source={require('../Image/Sonu.jpg')}
+                borderRadius={55} />
+            </NeuView>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
+            <Image
+                style={{ width: 110, height: 110, }}
+                source={require('../Image/Shreya.jpg')}
+                borderRadius={55} />
+            </NeuView>
+          </TouchableOpacity>
+
+        </ScrollView>
+
+        {/* ---------------------------------------------------------------------------------------- */}
+
+
+
+
+        {/* ------------------------------------------------------------------------------------------------------------ */}
 
         <View style={{ marginTop: hp(2) }}>
           <TouchableOpacity onPress={this.showModal}>
@@ -172,7 +248,6 @@ class DashboardScreen extends Component {
               backdropTransitionOutTiming={1000}
               onBackButtonPress={this.showModal}
               onBackdropPress={this.showModal}
-
               style={{ width: '100%', height: '70%', alignSelf: 'center' }}
             >
               <View style={{ maxHeight: hp(90), justifyContent: 'flex-end', marginTop: hp(12), marginBottom: -20, alignItems: 'center', backgroundColor: isDark ? '#303234' : '#e5f9ff', borderTopLeftRadius: 30, borderTopRightRadius: 30 }}>
@@ -226,7 +301,7 @@ class DashboardScreen extends Component {
           </TouchableOpacity>
         </View>
         <View style={{ marginTop: 15 }}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("Demo")} >
             <NeuView color={isDark ? '#303234' : '#eef2f9'} height={hp(7)} width={wp(90)} borderRadius={10} >
 
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
@@ -259,6 +334,7 @@ class DashboardScreen extends Component {
     )
   }
 }
+
 const mapStateToProps = (state) => ({
   isDark: state.mainReducer.darkMode
 })
@@ -268,5 +344,4 @@ const mapDispatchToProps = dispatch => {
     storeMusicList: (musics) => dispatch(storeMusicList(darkMode))
   }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardScreen)

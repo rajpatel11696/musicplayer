@@ -14,6 +14,9 @@ import MusiqueAlarm from '../Screen/Js files/MusiqueAlarm';
 import ThemeScreen from '../Screen/Js files/ThemeScreen';
 import FaQScreen from '../Screen/Js files/FaQScreen';
 import PlayerScreen from '../Screen/Js files/PlayerScreen';
+import ArtistScreen from '../Screen/Js files/ArtistScreen';
+import PlayerUiScreen from '../Screen/Js files/PlayerUiScreen';
+import DemoScreen from '../Screen/Js files/DemoScreen';
 
 const Stack = createStackNavigator();
 
@@ -25,10 +28,13 @@ function App() {
           headerShown: false,
         }}>
 <Stack.Screen name="Welcome" component={WelcomeScreen} />
+<Stack.Screen name="Demo" component={DemoScreen} />
+<Stack.Screen name="PlayerUi" component={PlayerUiScreen} />
 <Stack.Screen name="Dashboard" component={DashboardScreen} />
 <Stack.Screen name="FaQ" component={FaQScreen} />
 <Stack.Screen name="Home" component={HomeScreen}/> 
 <Stack.Screen name="Lock" component={LockScreen} />
+<Stack.Screen name="Artist" component={ArtistScreen} />
 <Stack.Screen name="Clock" component={MusiqueAlarm} />
 <Stack.Screen name="Signup" component={CreateAccScreen} />
 <Stack.Screen name="Login" component={LoginScreen} />

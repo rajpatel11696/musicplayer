@@ -6,6 +6,7 @@ import { hp, wp } from '../../../Dimension';
 import Sound from 'react-native-sound';
 import { connect } from 'react-redux'
 import { storeMusicList } from '../../Action/ActionConteiner';
+import TextTicker from 'react-native-text-ticker';
 
 const { Value, Clock, concat } = Animated;
 
@@ -29,7 +30,7 @@ class HomeScreen extends Component {
           playSeconds: seconds
         }, () => {
 
-          console.log("Sec>>>>>>>>>>>>" + this.state.playSeconds)
+          console.log(this.state.playSeconds)
         });
       })
     }, 1000);
@@ -122,12 +123,34 @@ class HomeScreen extends Component {
           </NeuView>
         </View>
 
-        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp(5) }}>
+        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp(5), }}>
           <View>
-            <Text style={{ fontSize: 30, color: '#5c5757', fontWeight: '500' }}>{this.props.route.params.data.title}</Text>
+            {/* <Text style={{ fontSize: 30, color: '#5c5757', fontWeight: '500' }}>{this.props.route.params.data.title}</Text> */}
+            <TextTicker
+              style={{ fontSize: 30, color: 'gray', width: 250 }}
+              duration={9000}
+              loop
+              bounce
+              repeatSpacer={50}
+              marqueeDelay={5000}
+            >
+              {this.props.route.params.data.title}
+            </TextTicker>
+
           </View>
           <View>
-            <Text style={{ fontSize: 24, color: '#808080' }}>{this.props.route.params.data.author}</Text>
+            {/* <Text style={{ fontSize: 24, color: '#808080' }}>{this.props.route.params.data.author}</Text> */}
+            <TextTicker
+              style={{ fontSize: 24, color: 'gray', width: wp(50) }}
+              duration={9000}
+              loop
+              bounce
+              repeatSpacer={50}
+              marqueeDelay={5000}
+            >
+              {this.props.route.params.data.author}
+            </TextTicker>
+
           </View>
         </View>
 

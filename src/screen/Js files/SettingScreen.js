@@ -31,7 +31,7 @@ class SettingScreen extends Component {
                         </TouchableOpacity>
                     </NeuView>
                     <NeuView color={isDark?'#303234': '#eef2f9'} height={90} width={90} borderRadius={16}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate("PlayerUi")}>
                             <Image
                                 style={{ width: 45, height: 45 }}
                                 source={require('../Image/Coupon_clr.png')}
@@ -41,7 +41,7 @@ class SettingScreen extends Component {
                     </NeuView>
 
                     <NeuView color={isDark?'#303234': '#eef2f9'} height={90} width={90} borderRadius={16}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate("Artist")}>
                             <Image
                                 style={{ width: 55, height: 65 }}
                                 source={require('../Image/subscribe_clr.png')}

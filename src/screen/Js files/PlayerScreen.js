@@ -6,29 +6,51 @@ import { hp, wp } from '../../../Dimension';
 import Sound from 'react-native-sound';
 import { connect } from 'react-redux'
 import { storeMusicList } from '../../Action/ActionConteiner';
+import TextTicker from 'react-native-text-ticker';
+
 
 class PlayerScreen extends Component {
+
     render() {
 
         const isDark = this.props.isDark
+       
 
         return (
-            <View style={{ backgroundColor: isDark?'#303234': '#e5f9ff', flex: 1, }}>
+            <View style={{ backgroundColor: isDark ? '#303234' : '#e5f9ff', flex: 1, }}>
 
                 <StatusBar hidden={true} />
 
                 <View style={{ marginTop: hp(8), marginLeft: wp(10) }}>
                     <View>
-                        <Text style={{ fontSize: 40, color: '#5c5757', fontWeight: '500' }}>LOST IT</Text>
+                        <TextTicker
+                            style={{ fontSize: 30, color: 'gray', width: wp(62) }}
+                            duration={9000}
+                            loop
+                            bounce
+                            repeatSpacer={50}
+                            marqueeDelay={5000}>
+                            Ek Taarfa Pyar
+                        </TextTicker>
+
                     </View>
                     <View>
-                        <Text style={{ fontSize: 24, color: '#808080' }}>Flume ft. Vic Methos</Text>
+                        <TextTicker
+                            style={{ fontSize: 24, color: 'gray', width: wp(50) }}
+                            duration={9000}
+                            loop
+                            bounce
+                            repeatSpacer={50}
+                            marqueeDelay={5000}>
+                            Darshan Raval                        
+                        </TextTicker>
+
                     </View>
                 </View>
                 <View style={{ marginTop: hp(4), flexDirection: 'row', marginLeft: wp(10) }}>
                     <View>
-                        <NeuView color={isDark?'#303234': '#eef2f9'} height={450} width={60} borderRadius={100} convex>
-                            <NeuView color={isDark?'#303234': '#eef2f9'} height={450} width={60} borderRadius={100} inset>
+                        <NeuView color={isDark ? '#303234' : '#eef2f9'} height={450} width={60} borderRadius={100} convex>
+                            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={450} width={60} borderRadius={100} inset>
                                 <View style={{ flexDirection: 'column', }}>
                                     <TouchableOpacity>
                                         <Image
@@ -60,9 +82,9 @@ class PlayerScreen extends Component {
                     </View>
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginLeft: wp(20) }}>
 
-                        <NeuView color={isDark?'#303234': '#eef2f9'} height={450} width={450} borderRadius={250} >
-                            <NeuView color={isDark?'#303234': '#eef2f9'} height={420} width={420} borderRadius={250} inset>
-                                <NeuView color={isDark?'#303234': '#eef2f9'} height={320} width={320} borderRadius={250} concave>
+                        <NeuView color={isDark ? '#303234' : '#eef2f9'} height={450} width={450} borderRadius={250} >
+                            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={420} width={420} borderRadius={250} inset>
+                                <NeuView color={isDark ? '#303234' : '#eef2f9'} height={320} width={320} borderRadius={250} concave>
                                     <Image
                                         style={{ width: 280, height: 280, borderRadius: 200 }}
                                         source={require('../Image/Album_Cover.jpg')}
@@ -73,8 +95,8 @@ class PlayerScreen extends Component {
                     </View>
                 </View>
                 <View style={{ alignItems: 'center', marginTop: hp(12) }}>
-                    <NeuView color={isDark?'#303234': '#eef2f9'} height={40} width={320} borderRadius={250} >
-                        <Text style={{fontSize: 18, color: 'gray', alignItems: 'center', justifyContent: 'center'}}>List of Songs</Text>
+                    <NeuView color={isDark ? '#303234' : '#eef2f9'} height={40} width={320} borderRadius={250} >
+                        <Text style={{ fontSize: 18, color: 'gray', alignItems: 'center', justifyContent: 'center' }}> List of Songs</Text>
                     </NeuView>
                 </View>
             </View>
@@ -83,13 +105,13 @@ class PlayerScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    isDark:state.mainReducer.darkMode
-  })
-  
-  const mapDispatchToProps = dispatch=>{
-    return{
-        storeMusicList:(musics)=>dispatch(storeMusicList(darkMode))
+    isDark: state.mainReducer.darkMode
+})
+
+const mapDispatchToProps = dispatch => {
+    return {
+        storeMusicList: (musics) => dispatch(storeMusicList(darkMode))
     }
-  }
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(PlayerScreen)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerScreen)
