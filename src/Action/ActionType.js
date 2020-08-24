@@ -1,2 +1,5 @@
 export const DARK_MODE = "DARK_MODE"
 export const MUSIC_LIST = "MUSIC_LIST"
+export const PLAY_OBJECT = "PLAY_OBJECT"
+export const CHANGE_PLAYER =  "CHANGE_PLAYER"
+export const CUREENT_PLAY_INDEX="CUREENT_PLAY_INDEX"

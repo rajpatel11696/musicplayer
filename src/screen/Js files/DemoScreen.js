@@ -5,7 +5,8 @@ import { hp, wp } from '../../../Dimension';
 import ReactNativeParallaxHeader from 'react-native-parallax-header';
 import { opacity } from 'react-native-redash';
 import { connect } from 'react-redux'
-
+import { Value } from 'react-native-reanimated';
+import TextTicker from 'react-native-text-ticker'
 
 class DemoScreen extends Component {
     onPressBack = () => {
@@ -19,43 +20,59 @@ class DemoScreen extends Component {
         const isDark = this.props.isDark
 
         return (
-            <View style={{ alignItems: 'center', marginTop: hp(7), justifyContent: "center" }}>
-                <NeuView color={isDark ? '#303234' : '#eef2f9'} height={hp(7)} width={wp(65)} borderRadius={50} convex>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', alignContent: 'center' }}>
+            
 
-                        <View>
-                            <TouchableOpacity onPress={this.onPressBack}>
-                                <Image
-                                    style={{ width: 45, height: 45, position: 'relative', marginLeft: wp(5) }}
-                                    source={require('../Image/Backward.png')}
-                                />
-                            </TouchableOpacity>
 
-                        </View>
-                        <View style={{ marginLeft: wp(5) }}>
-                            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={90} width={90} borderRadius={45} convex>
-                                <TouchableOpacity>
-                                    <NeuView color={isDark ? '#303234' : '#eef2f9'} height={70} width={70} borderRadius={35} convex>
-                                        <Image
-                                            style={{ width: 45, height: 45, }}
-                                            source={require('../Image/plybtn.png')}
-                                        />
-                                    </NeuView>
-                                </TouchableOpacity>
-                            </NeuView>
-                        </View>
-                        <View style={{ marginLeft: wp(5), marginRight: wp(4) }}>
-                            <TouchableOpacity onPress={this.onPressMenu}>
-                                <Image
-                                    style={{ width: 45, height: 45, }}
-                                    source={require('../Image/Forward.png')}
-                                />
-                            </TouchableOpacity>
-
-                        </View>
-                    </View>
-                </NeuView>
+        <View style={{ alignItems: 'center', marginTop: hp(7), justifyContent: "center" }}>
+        {/* <NeuView color={isDark ? '#303234' : '#eef2f9'} height={hp(10)} width={wp(94)} borderRadius={20} inset>
+          <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: wp(2) }}>
+            <View style={{ width: wp(43), marginRight: wp(4) }}>
+              <TextTicker
+                style={{ fontSize: 22, color: 'gray', width: wp(43) }}
+                duration={9000}
+                loop
+                bounce
+                repeatSpacer={50}
+                marqueeDelay={5000}>
+                {this.props.musicList.length >0?this.props.musicList[this.props.currentPlayIndex].title:''}</TextTicker>
+              <TextTicker
+                style={{ fontSize: 14, color: 'gray', }}
+                duration={9000}
+                loop
+                bounce
+                repeatSpacer={50}
+                marqueeDelay={5000}>
+                {this.props.musicList.length >0?this.props.musicList[this.props.currentPlayIndex].title:''}</TextTicker>
             </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: wp(43) }}>
+              <TouchableOpacity>
+                <NeuView color={isDark ? '#303234' : '#eef2f9'} height={45} width={45} borderRadius={50} concave>
+                  <Image
+                    style={{ width: 36, height: 36 }}
+                    source={require('../Image/Backward.png')}
+                  />
+                </NeuView>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <NeuView color={isDark ? '#303234' : '#eef2f9'} height={65} width={65} borderRadius={50} concave>
+                  <Image
+                    style={{ width: 50, height: 50 }}
+                    source={require('../Image/plybtn.png')}
+                  />
+                </NeuView>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <NeuView color={isDark ? '#303234' : '#eef2f9'} height={40} width={40} borderRadius={50} concave >
+                  <Image
+                    style={{ width: 36, height: 36 }}
+                    source={require('../Image/Forward.png')}
+                  />
+                </NeuView>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </NeuView> */}
+      </View>
         )
     }
 }

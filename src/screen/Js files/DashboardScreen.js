@@ -7,6 +7,7 @@ import Modal from 'react-native-modal';
 import MusicFiles from 'react-native-get-music-files';
 import { connect } from 'react-redux'
 import { storeMusicList } from '../../Action/ActionConteiner';
+import TextTicker from 'react-native-text-ticker';
 
 class DashboardScreen extends Component {
 
@@ -40,7 +41,7 @@ class DashboardScreen extends Component {
 
   );
 
-  renderItem = ({ item }) => (
+  renderItem = ({ item, index }) => (
 
     item.title !== null && <View style={{ width: wp(90), flexDirection: 'row', padding: wp(3), alignItems: 'center', justifyContent: 'space-between', backgroundColor: this.props.isDark ? '#303234' : '#e5f9ff' }}>
       <View style={{ width: wp(75), flexDirection: 'column' }}>
@@ -49,7 +50,7 @@ class DashboardScreen extends Component {
       </View>
       <TouchableOpacity
 
-        onPress={() => this.onPlayBtn(item)}>
+        onPress={() => this.onPlayBtn(item, index)}>
         <Image
           source={require('../Image/PlayIcon.png')}
           style={{ width: 40, height: 40 }}
@@ -60,7 +61,6 @@ class DashboardScreen extends Component {
   );
 
   componentDidMount() {
-    console.log("Reduxx>>>" + this.props.isDark)
     MusicFiles.getAll({
       id: true, // get id
       artist: true, // get artist
@@ -69,10 +69,12 @@ class DashboardScreen extends Component {
       genre: true, // get genre
       title: true, // get title
       fileName: true, // get file name
+      cover: true,
+      blured: true,
       minimumSongDuration: 1000 // get track has min duration is 1000 ms (or 1s)
     }).then(tracks => {
-      // const filterData = tracks.filter((item) => item.genre === 'Technology')
       console.log(JSON.stringify(tracks));
+      this.props.storeMusicList(tracks)
       this.setState({
         musicArray: tracks,
         isDataload: true
@@ -81,13 +83,28 @@ class DashboardScreen extends Component {
 
     })
   }
-
-  onPlayBtn = (item) => {
+  onPlayBtn = (item, index) => {
     this.setState({ isModalVisible: !this.state.isModalVisible }, () => {
-      this.props.navigation.navigate("Home", { data: item });
+      if (this.props.playObject.release !== undefined) {
+        this.props.playObject.release()
+      }
+      if (this.props.selectedPlayer === 0) {
+        setTimeout(() => {
+          this.props.navigation.navigate("Home", {
+            data: item,
+            index: index
+          });
+        }, 600)
 
+      } else if (this.props.selectedPlayer === 1) {
+        this.props.navigation.navigate("PlayerUi", {
+          data: item,
+          index: index
+        });
+      } else {
+
+      }
     });
-
   }
   showModal = () => {
     this.setState({ isModalVisible: !this.state.isModalVisible });
@@ -97,11 +114,10 @@ class DashboardScreen extends Component {
 
     return (
 
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: isDark ? '#303234' : '#e5f9ff' }}>
-
+      <ScrollView
+        contentContainerStyle={{ height: hp(100), alignItems: 'center', justifyContent: 'center', backgroundColor: isDark ? '#303234' : '#e5f9ff', paddingBottom: 20 }}>
         <StatusBar hidden={true} />
-
-        <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: hp(4) }}>
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
           <NeuInput
             prefix={
               <Image
@@ -113,57 +129,67 @@ class DashboardScreen extends Component {
             width={350} height={50} color={isDark ? '#303234' : '#eef2f9'} borderRadius={50}
           />
         </View>
+{/* ------------------------------------------------------------------------------------------------------------ */}
+     
+        <View style={{ alignItems: 'center', marginTop: hp(7), justifyContent: "center" }}>
+        <NeuView color={isDark ? '#303234' : '#eef2f9'} height={hp(10)} width={wp(94)} borderRadius={20} inset>
+          <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: wp(2) }}>
+            <View style={{ width: wp(43), marginRight: wp(4) }}>
+              <TextTicker
+                style={{ fontSize: 22, color: 'gray', width: wp(43) }}
+                duration={9000}
+                loop
+                bounce
+                repeatSpacer={50}
+                marqueeDelay={5000}>
+                {this.props.musicList.length >0?this.props.musicList[this.props.currentPlayIndex].title:''}</TextTicker>
+              <TextTicker
+                style={{ fontSize: 14, color: 'gray', }}
+                duration={9000}
+                loop
+                bounce
+                repeatSpacer={50}
+                marqueeDelay={5000}>
+                {this.props.musicList.length >0?this.props.musicList[this.props.currentPlayIndex].title:''}</TextTicker>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: wp(43) }}>
+              <TouchableOpacity>
+                <NeuView color={isDark ? '#303234' : '#eef2f9'} height={45} width={45} borderRadius={50} concave>
+                  <Image
+                    style={{ width: 36, height: 36 }}
+                    source={require('../Image/Backward.png')}
+                  />
+                </NeuView>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <NeuView color={isDark ? '#303234' : '#eef2f9'} height={65} width={65} borderRadius={50} concave>
+                  <Image
+                    style={{ width: 50, height: 50 }}
+                    source={require('../Image/plybtn.png')}
+                  />
+                </NeuView>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <NeuView color={isDark ? '#303234' : '#eef2f9'} height={40} width={40} borderRadius={50} concave >
+                  <Image
+                    style={{ width: 36, height: 36 }}
+                    source={require('../Image/Forward.png')}
+                  />
+                </NeuView>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </NeuView>
+      </View>
 
-        {/* --------------------------------------------------------------------------------------------- */}
-        <View style={{ marginTop: 30, alignSelf: 'flex-start', marginLeft: 20 }}>
-          <Text style={{ fontSize: 24, color: 'gray', fontWeight: '200' }}>Moods & Collections</Text>
-        </View>
-        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ maxHeight: 200, marginTop: hp(2) }}>
-          <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={170} width={130} borderRadius={20} convex>
-              <Image
-                style={{ width: 125, height: 160, }}
-                source={require('../Image/bolly.jpg')}
-                borderRadius={20}
-              />
-            </NeuView>
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={170} width={130} borderRadius={20} convex>
-              <Image
-                style={{ width: 125, height: 160, }}
-                source={require('../Image/old.jpg')}
-                borderRadius={20}
-              />
-            </NeuView>
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={170} width={130} borderRadius={20} convex>
-              <Image
-                style={{ width: 125, height: 160, }}
-                source={require('../Image/ppl.jpg')}
-                borderRadius={20}
-              />
-            </NeuView>
-          </TouchableOpacity>
-          <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={170} width={130} borderRadius={20} convex>
-              <Image
-                style={{ width: 125, height: 160, }}
-                source={require('../Image/bolly.jpg')}
-                borderRadius={20} />
-            </NeuView>
-          </TouchableOpacity>
-        </ScrollView>
 
-        {/* ----------------------------------------------------------------- */}
 
-        <View style={{ marginTop: 40, alignSelf: 'flex-start', marginLeft: 20}}>
+        <View style={{ marginTop: 40, alignSelf: 'flex-start', marginLeft: 20 }}>
           <Text style={{ fontSize: 24, color: 'gray', fontWeight: '200' }}>Artists</Text>
         </View>
-        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ maxHeight: 200, marginTop: hp(3)}}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("Artist")}style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
+        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ maxHeight: 200, marginTop: hp(3) }}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("Artist")} style={{ marginHorizontal: 15, height: 200 }}>
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{ marginTop: 5 }}>
               <Image
                 style={{ width: 110, height: 110, }}
                 source={require('../Image/Darshan.jpg')}
@@ -171,56 +197,57 @@ class DashboardScreen extends Component {
             </NeuView>
           </TouchableOpacity>
           <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
-            <Image
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{ marginTop: 5 }}>
+              <Image
                 style={{ width: 110, height: 110, }}
                 source={require('../Image/Arijit.jpg')}
                 borderRadius={55} />
             </NeuView>
           </TouchableOpacity>
           <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
-            <Image
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{ marginTop: 5 }}>
+              <Image
                 style={{ width: 110, height: 110, }}
                 source={require('../Image/Neha.jpg')}
                 borderRadius={55} />
             </NeuView>
           </TouchableOpacity>
           <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
-            <Image
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{ marginTop: 5 }}>
+              <Image
                 style={{ width: 110, height: 110, }}
                 source={require('../Image/Tony.jpg')}
                 borderRadius={55} />
             </NeuView>
           </TouchableOpacity>
           <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
-            <Image
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{ marginTop: 5 }}>
+              <Image
                 style={{ width: 110, height: 110, }}
                 source={require('../Image/Sunidhi.jpg')}
                 borderRadius={55} />
             </NeuView>
           </TouchableOpacity>
           <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
-            <Image 
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{ marginTop: 5 }}>
+              <Image
                 style={{ width: 110, height: 110, }}
                 source={require('../Image/Atif.jpg')}
                 borderRadius={55} />
             </NeuView>
           </TouchableOpacity>
           <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
-            <Image
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{ marginTop: 5 }}>
+              <Image
                 style={{ width: 110, height: 110, }}
                 source={require('../Image/Sonu.jpg')}
                 borderRadius={55} />
             </NeuView>
+        
           </TouchableOpacity>
           <TouchableOpacity style={{ marginHorizontal: 15, height: 200 }}>
-            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{marginTop: 5}}>
-            <Image
+            <NeuView color={isDark ? '#303234' : '#eef2f9'} height={120} width={120} borderRadius={60} inset style={{ marginTop: 5 }}>
+              <Image
                 style={{ width: 110, height: 110, }}
                 source={require('../Image/Shreya.jpg')}
                 borderRadius={55} />
@@ -228,15 +255,10 @@ class DashboardScreen extends Component {
           </TouchableOpacity>
 
         </ScrollView>
-
+       
         {/* ---------------------------------------------------------------------------------------- */}
 
-
-
-
-        {/* ------------------------------------------------------------------------------------------------------------ */}
-
-        <View style={{ marginTop: hp(2) }}>
+        <View>
           <TouchableOpacity onPress={this.showModal}>
             <Modal isVisible={this.state.isModalVisible}
               animationIn={'slideInUp'}
@@ -287,7 +309,22 @@ class DashboardScreen extends Component {
           </TouchableOpacity>
         </View>
         <View style={{ marginTop: 15 }}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => {
+            var resArr = [];
+            this.state.musicArray.filter(function (item) {
+              var i = resArr.findIndex(x => (x.album == item.album && x.cover == item.cover));
+              if (i <= -1) {
+                resArr.push({
+                  album: item.album,
+                  cover: item.cover
+                });
+              }
+              return null;
+            });
+            this.props.navigation.navigate("AlbumScreen", { albumList: resArr })
+            console.log("AlmubList" + JSON.stringify(resArr))
+          }}>
+            
             <NeuView color={isDark ? '#303234' : '#eef2f9'} height={hp(7)} width={wp(90)} borderRadius={10} >
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
                 <Image
@@ -330,18 +367,22 @@ class DashboardScreen extends Component {
             </NeuView>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  isDark: state.mainReducer.darkMode
+  isDark: state.mainReducer.darkMode,
+  playObject: state.mainReducer.playObject,
+  selectedPlayer: state.mainReducer.selectedplayer,
+  currentPlayIndex: state.mainReducer.cureentPlayIndex,
+  musicList: state.mainReducer.musicList
 })
 
 const mapDispatchToProps = dispatch => {
   return {
-    storeMusicList: (musics) => dispatch(storeMusicList(darkMode))
+    storeMusicList: (musics) => dispatch(storeMusicList(musics))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardScreen)

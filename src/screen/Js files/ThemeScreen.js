@@ -3,8 +3,9 @@ import { Text, View, Image } from 'react-native'
 import { hp, wp } from '../../../Dimension';
 import { NeuButton, NeuView } from 'react-native-neu-element';
 import { RadioButton, Switch } from 'react-native-paper';
-import { changeDarkMode } from '../../Action/ActionConteiner';
+import { changeDarkMode,changePlayer } from '../../Action/ActionConteiner';
 import { connect } from 'react-redux';
+import { ScrollView } from 'react-native-gesture-handler';
 
 class ThemeScreen extends Component {
 
@@ -23,6 +24,9 @@ class ThemeScreen extends Component {
 
             <View style={{ flex: 1, backgroundColor: isDark ? '#303234' : '#e5f9ff' }}>
 
+            <ScrollView
+             contentContainerStyle={{ height: hp(100), alignItems: 'center', justifyContent: 'center', backgroundColor: isDark ? '#303234' : '#e5f9ff', paddingBottom: 20 }}
+            >
                 <View style={{ flexDirection: 'column', marginTop: hp(5) }}>
                     <View style={{ height: hp(35), backgroundColor: 'powderblue' }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginRight: wp(5) }}>
@@ -30,7 +34,11 @@ class ThemeScreen extends Component {
                             <RadioButton
                                 value="first"
                                 status={checked === 'first' ? 'checked' : 'unchecked'}
-                                onPress={() => { this.setState({ checked: 'first' }); 
+                                onPress={() => { this.setState({ 
+                                    checked: 'first' 
+                                },()=>{
+                                    this.props.changePlayer(1)
+                                }); 
                             }}
                             />
                         </View>
@@ -42,11 +50,16 @@ class ThemeScreen extends Component {
                             <RadioButton
                                 value="second"
                                 status={checked === 'second' ? 'checked' : 'unchecked'}
-                                onPress={() => { this.setState({ checked: 'second' }); }}
+                                onPress={() => { 
+                                    this.setState({ checked: 'second'
+                                 },()=>{
+                                    this.props.changePlayer(2)
+                                 }); }}
                             />
                         </View>
                     </View>
                 </View>
+                </ScrollView>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginRight: wp(4), marginTop: hp(4) }}>
                         <Text style={{ fontSize: 20, color: 'gray',  marginLeft: wp(6) }}>Black Mode</Text>
                         <Switch
@@ -83,7 +96,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeDarkMode: (darkMode) => dispatch(changeDarkMode(darkMode))
+        changeDarkMode: (darkMode) => dispatch(changeDarkMode(darkMode)),
+        changePlayer:(value)=>dispatch(changePlayer(value))
     }
 }
 

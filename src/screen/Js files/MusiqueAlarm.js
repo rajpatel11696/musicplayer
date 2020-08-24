@@ -9,15 +9,25 @@ import { connect } from 'react-redux'
 import { storeMusicList } from '../../Action/ActionConteiner';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-[show, setShow] = useState(false);
+
 
 class MusiqueAlarm extends Component {
-    
+    state={
+        show:false
+    }
 
     showTimepicker = () => {
-        showMode('time');
+        this.setState({
+            show:true
+        })
     };
 
+    onChange=(event,date)=>{
+
+        this.setState({
+            show:false
+        })
+    }
 
 
     render() {
@@ -25,24 +35,24 @@ class MusiqueAlarm extends Component {
         const isDark = this.props.isDark
 
         return (
-            <View style={{ flex: 1, backgroundColor: isDark ? '#303234' : '#e5f9ff' }}>
+            <View pointerEvents={true ? 'none' : 'auto'} style={{ flex: 1, backgroundColor: isDark ? '#303234' : '#e5f9ff' }}>
                 <MyHeader backgroundColor={isDark ? '#27282a' : '#c3f3ff'} />
-                <View>
+                <View style={{marginTop: 20}}>
                     <Button onPress={this.showTimepicker} title="Show time picker!" />
                 </View>
-                {show && (
+                {this.state.show && (
                     <DateTimePicker
                         testID="dateTimePicker"
-                        value={date}
-                        mode={mode}
-                        is24Hour={true}
+                        value={new Date()}
+                        mode={'time'}
+                        is24Hour={false}
                         display="default"
-                        onChange={onChange}
+                        onChange={()=>this.onChange}
                     />
                 )}
 
 
-                <View style={{ borderWidth: 0.8, borderColor: isDark ? '#292B2E' : '#e6e6e6', width: wp(90), alignSelf: 'center', justifyContent: 'center', marginTop: hp(50) }}>
+                <View style={{ borderWidth: 0.8, borderColor: isDark ? '#292B2E' : '#e6e6e6', width: wp(90), alignSelf: 'center', justifyContent: 'center', marginTop: hp(40) }}>
                 </View>
                 <View style={{ marginTop: hp(3), marginLeft: wp(6) }}>
                     <Text style={{ fontSize: 20, color: 'gray' }}>Repeat</Text>
